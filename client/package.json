@@ -1,0 +1,19 @@
+{
+  "name": "entretiempo-sanjuanino-client",
+  "version": "1.0.0",
+  "description": "El futbol sanjuanino en una sola pagina!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fedexaz/entretiempo-sanjuanino.git"
+  },
+  "author": "FedexaZ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fedexaz/entretiempo-sanjuanino/issues"
+  },
+  "homepage": "https://github.com/Fedexaz/entretiempo-sanjuanino#readme"
+}
