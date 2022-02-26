@@ -17,3 +17,7 @@
 - Fede Lahoz - Programador Full Stack Web (Fede Lahoz Interactive)
 
 - Maxi Maldonado - Marketing y publicidad 
+
+# DOCUMENTACIÓN DE LA APP
+
+- Aquí irá la documentación del proyecto
