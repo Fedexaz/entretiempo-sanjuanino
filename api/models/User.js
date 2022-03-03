@@ -1,7 +1,4 @@
 const { Model, DataTypes } = require('sequelize')
-const conexion = require('../database')
-
-class User extends Model {}
 
 const departamentos = [
     "Elegir", 
@@ -53,7 +50,10 @@ const provincias = [
     "Tucumán"
 ]
 
-module.exports = User.init({
+module.exports = (sequelize) => {
+    class User extends Model {}
+
+    User.init({
         nombre:{
             type: DataTypes.STRING(100),
             allowNull: false
@@ -98,7 +98,7 @@ module.exports = User.init({
             defaultValue: DataTypes.NOW
         },
         puntos:{
-            type: DataTypes.BIGINT(20),
+            type: DataTypes.BIGINT,
             defaultValue: 0
         },
         urlPerfil:{
@@ -107,7 +107,7 @@ module.exports = User.init({
         }
     }, 
     {
-        conexion,
+        sequelize,
         modelName: "User"
-    }
-)
+    })
+}
