@@ -9,6 +9,9 @@ const Product = require('./models/Product');
 const Player = require('./models/Player');
 const NewImg = require('./models/NewImg');
 const New = require('./models/New');
+const MessageSend = require('./models/MessageSend');
+const MessageReceived = require('./models/MessageReceived');
+const Chat = require('./models/Chat');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -52,6 +55,9 @@ Product(sequelize)
 Player(sequelize)
 NewImg(sequelize)
 New(sequelize)
+MessageSend(sequelize)
+MessageReceived(sequelize)
+Chat(sequelize)
 
 // Relaciones
 

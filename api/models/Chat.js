@@ -1,24 +1,20 @@
 const { Model, DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-    class MessageSend extends Model {}
+    class Chat extends Model {}
 
-    MessageSend.init({
-        mensaje:{
-            type: DataTypes.TEXT,
-            allowNull: false
-        },
-        receptorID:{
+    Chat.init({
+        user_1:{
             type: DataTypes.BIGINT,
             allowNull: false
         },
-        chatID:{
+        user_2:{
             type: DataTypes.BIGINT,
             allowNull: false
-        }
+        },
     }, 
     {
         sequelize,
-        modelName: "MessageSend"
+        modelName: "Chat"
     })
 }
