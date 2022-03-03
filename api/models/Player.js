@@ -24,37 +24,52 @@ const departamentos = [
 ]
 
 module.exports = (sequelize) => {
-    class Team extends Model {}
+    class Player extends Model {}
 
-    Team.init({
+    Player.init({
         nombre:{
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING,
             allowNull: false
         },
-        urlEscudo:{
-            type: DataTypes.TEXT,
+        equipoID:{
+            type: DataTypes.BIGINT,
             allowNull: false
-        },
-        pagina:{
-            type: DataTypes.TEXT,
-            defaultValue: 'http://www.entretiemposj.com.ar/'
-        },
-        fechaCreacion:{
-            type: DataTypes.DATEONLY,
-            defaultValue: 1910
-        },
-        siglas:{
-            type: DataTypes.STRING(10),
-            allowNull: false,
         },
         departamento:{
             type: DataTypes.ENUM(departamentos),
             allowNull: false,
             defaultValue: departamentos[0]
         },
+        altura:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
+        peso:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
+        posicion:{
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        numero:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
+        foto:{
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        informacion:{
+            type: DataTypes.TEXT,
+            allowNull: false
+        }
     }, 
     {
         sequelize,
-        modelName: "Team"
+        modelName: "Player"
     })
 }
