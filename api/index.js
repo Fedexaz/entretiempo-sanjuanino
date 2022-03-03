@@ -6,7 +6,7 @@
     -------------------------------------------------------------------------
 */
 
-const servidor = require('./servidor')
+const servidor = require('./database')
 
 require('dotenv').config()
 
