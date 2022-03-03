@@ -8,6 +8,7 @@ const Pronostic = require('./models/Pronostic');
 const Product = require('./models/Product');
 const Player = require('./models/Player');
 const NewImg = require('./models/NewImg');
+const New = require('./models/New');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -50,6 +51,7 @@ Pronostic(sequelize)
 Product(sequelize)
 Player(sequelize)
 NewImg(sequelize)
+New(sequelize)
 
 // Relaciones
 
