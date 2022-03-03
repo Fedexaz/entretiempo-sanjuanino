@@ -108,8 +108,6 @@ module.exports = (sequelize) => {
     }, 
     {
         sequelize,
-        modelName: "User",
-        createdAt: true,
-        updatedAt: false
+        modelName: "User"
     })
 }

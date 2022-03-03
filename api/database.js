@@ -1,11 +1,11 @@
 require('dotenv').config()
 
-const fs = require('fs');
-const path = require('path');
-
 const { Sequelize } = require('sequelize')
 
 const User = require('./models/User');
+const Team = require('./models/Team');
+const Pronostic = require('./models/Pronostic');
+const Product = require('./models/Product');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -40,7 +40,13 @@ let sequelize =
     }
 );
 
+//Inicializacion de los modelos (pasandole la instancia de sequelize)
+
 User(sequelize)
+Team(sequelize)
+Pronostic(sequelize)
+Product(sequelize)
+
 // Relaciones
 
 /* Country.belongsToMany(Activity, { through: 'countryActivity'})
