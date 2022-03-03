@@ -13,6 +13,6 @@ router.use('/api/partidos', rutasAPIPartidos)
 
 router.use('/api/jugadores', rutasAPIJugadores)
 
-router.use('/api')
+//router.use('/api')
 
 module.exports = router;
