@@ -72,4 +72,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "Player"
     })
+
+    return Player
 }

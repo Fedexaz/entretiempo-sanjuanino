@@ -29,4 +29,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "New"
     })
+
+    return New
 }

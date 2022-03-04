@@ -57,4 +57,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "Team"
     })
+
+    return Team
 }

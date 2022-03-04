@@ -10,4 +10,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "Cart"
     })
+
+    return Cart;
 }

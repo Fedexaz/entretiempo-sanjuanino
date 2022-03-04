@@ -52,22 +52,26 @@ let sequelize =
 
 //Inicializacion de los modelos (pasandole la instancia de sequelize)
 
-User(sequelize)
-Team(sequelize)
-Pronostic(sequelize)
-Product(sequelize)
-Player(sequelize)
-NewImg(sequelize)
-New(sequelize)
-MessageSend(sequelize)
-MessageReceived(sequelize)
-Chat(sequelize)
-Match(sequelize)
-Like(sequelize)
-Comment(sequelize)
-Cart(sequelize)
+const rUser = User(sequelize)
+const rTeam = Team(sequelize)
+const rPronostic = Pronostic(sequelize)
+const rProduct = Product(sequelize)
+const rPlayer = Player(sequelize)
+const rNewImg = NewImg(sequelize)
+const rNew = New(sequelize)
+const rMessageSend = MessageSend(sequelize)
+const rMessageReceived = MessageReceived(sequelize)
+const rChat = Chat(sequelize)
+const rMatch = Match(sequelize)
+const rLike = Like(sequelize)
+const rComment = Comment(sequelize)
+const rCart = Cart(sequelize)
 
 // Relaciones
+
+//Usuario
+
+rUser.hasOne(rCart, )
 
 /* Country.belongsToMany(Activity, { through: 'countryActivity'})
 Activity.belongsToMany(Country, { through: 'countryActivity'}) */

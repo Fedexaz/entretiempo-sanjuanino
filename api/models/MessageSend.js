@@ -21,4 +21,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "MessageSend"
     })
+
+    return MessageSend
 }

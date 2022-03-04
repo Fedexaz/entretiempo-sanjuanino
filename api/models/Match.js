@@ -65,4 +65,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "Match"
     })
+
+    return Match
 }

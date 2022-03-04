@@ -25,4 +25,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "Pronostic"
     })
+
+    return Pronostic
 }

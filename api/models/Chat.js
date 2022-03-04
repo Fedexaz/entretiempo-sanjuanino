@@ -17,4 +17,6 @@ module.exports = (sequelize) => {
         sequelize,
         modelName: "Chat"
     })
+
+    return Chat
 }
