@@ -14,6 +14,8 @@ const MessageReceived = require('./models/MessageReceived');
 const Chat = require('./models/Chat');
 const Match = require('./models/Match');
 const Like = require('./models/Like');
+const Comment = require('./models/Comment');
+const Cart = require('./models/Cart');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -62,6 +64,8 @@ MessageReceived(sequelize)
 Chat(sequelize)
 Match(sequelize)
 Like(sequelize)
+Comment(sequelize)
+Cart(sequelize)
 
 // Relaciones
 
