@@ -71,7 +71,25 @@ const rCart = Cart(sequelize)
 
 //Usuario
 
-rUser.hasOne(rCart, )
+//Relacion carrito-usuario
+rUser.hasOne(rCart)
+rCart.belongsTo(rUser)
+
+//Relacion usuario-pronostico
+rUser.hasMany(rPronostic)
+rPronostic.belongsTo(rUser)
+
+//Relacion user-chat
+rUser.belongsToMany(rChat, { through: 'UserChat'})
+rChat.belongsToMany(rUser, { through: 'UserChat'})
+
+//Relacion chat-messages
+rChat.hasMany(rMessageSend)
+rChat.hasMany(rMessageReceived)
+rMessageSend.belongsTo(rChat)
+rMessageReceived.belongsTo(rChat)
+
+
 
 /* Country.belongsToMany(Activity, { through: 'countryActivity'})
 Activity.belongsToMany(Country, { through: 'countryActivity'}) */
