@@ -12,6 +12,7 @@ const New = require('./models/New');
 const MessageSend = require('./models/MessageSend');
 const MessageReceived = require('./models/MessageReceived');
 const Chat = require('./models/Chat');
+const Match = require('./models/Match');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -58,6 +59,7 @@ New(sequelize)
 MessageSend(sequelize)
 MessageReceived(sequelize)
 Chat(sequelize)
+Match(sequelize)
 
 // Relaciones
 
