@@ -52,6 +52,14 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: departamentos[0]
         },
+        cancha:{
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        descripcion:{
+            type: DataTypes.TEXT,
+            allowNull: false
+        }
     }, 
     {
         sequelize,

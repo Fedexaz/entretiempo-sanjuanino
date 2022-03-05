@@ -6,7 +6,7 @@ const route = require('express').Router()
 
 //=====================================================================================================
 //
-//      AQUI VAN LAS RUTAS PARA LOS QUE TENGAN EL ACCESO A LOS DATOS DE LA API
+//      AQUI VAN LAS RUTAS PARA LOS QUE TENGAN EL ACCESO A LOS DATOS DE LA API (EQUIPOS)
 //
 //=====================================================================================================
 
@@ -94,9 +94,9 @@ route.get('/nombre/:nombre', async (req, res) => {
 */
 
 route.post('/add', async (req, res) => {
-    const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departamento } = req.body;
+    const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departamento, cancha, descripcion } = req.body;
 
-    if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
+    if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento || !cancha || !descripcion) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
 
     try {
         await Team.create({
@@ -105,7 +105,9 @@ route.post('/add', async (req, res) => {
             pagina,
             fechaCreacion,
             siglas,
-            departamento
+            departamento,
+            cancha,
+            descripcion
         })
         return res.status(201).send({
             nombre,
@@ -113,7 +115,9 @@ route.post('/add', async (req, res) => {
             pagina,
             fechaCreacion,
             siglas,
-            departamento
+            departamento,
+            cancha,
+            descripcion
         })
     } catch (error) {
         return res.status(400).send(error)
@@ -136,9 +140,9 @@ route.put('/edit/:id', async (req, res) => {
 
     if(Number(id) > 0){
 
-        const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departamento } = req.body;
+        const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departament, cancha, descripcion } = req.body;
 
-        if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
+        if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento || !cancha || !descripcion) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
 
         try {
             
@@ -150,6 +154,8 @@ route.put('/edit/:id', async (req, res) => {
             teamToEdit.fechaCreacion = fechaCreacion
             teamToEdit.siglas = siglas
             teamToEdit.departamento = departamento
+            teamToEdit.cancha = cancha
+            teamToEdit.descripcion = descripcion
 
             await teamToEdit.save() //Guardamos el equipo editado
 
