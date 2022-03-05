@@ -79,13 +79,39 @@ route.get('/nombre/:nombre', async (req, res) => {
     }
 })
 
+/*
+
+    RUTA ---------> /api/equipos/:id/jugadores
+
+    Aquí se obtienen los jugadores de un equipo buscado por id
+
+*/
+
+route.get('/:id/jugadores', async (req, res) => {
+    const { id } = req.params;
+
+    if(!id || Number.isNaN(Number(id))) return res.status(400).send("ID inválido")
+
+    if(Number(id) > 0){
+        try {
+            const resEquipo = await Team.findByPk(Number(id), {
+                include: Player
+            })
+            return res.json(resEquipo.Players)
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    else return res.status(400).send("ID inválido (mayor o igual a 1)")
+})
+
 //=====================================================================================================
 //
 //      AQUI VAN LAS RUTAS PARA EL PANEL ADMINISTRATIVO DE LA API
 //
 //=====================================================================================================
 
-/*
+/* 
 
     RUTA ---------> /api/equipos/add
 

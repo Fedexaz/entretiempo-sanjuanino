@@ -43,7 +43,7 @@ route.get('/id/:id', async (req, res) => {
     if(Number(id) > 0){
         try {
             const resJugador = await Player.findByPk(Number(id), {
-                include: [Team, Match]
+                include: [Team]
             })
             return res.json(resJugador)
         } catch (error) {
@@ -57,27 +57,140 @@ route.get('/id/:id', async (req, res) => {
 
     RUTA ---------> /api/jugador/buscar
 
-    Aquí se obtienen los jugadores buscados por nombre, su equipo y sus partidos
+    Aquí se obtienen los jugadores buscados por nombre, departamento, altura, peso, posicion y numero, mientras trae su equipo
 
 */
 
-route.get('/nombre/:nombre', async (req, res) => {
+//BUSCAR POR NOMBRE
+
+route.get('/buscar/nombre/:nombre', async (req, res) => {
     const { nombre } = req.params;
 
-    try {
-        const resEquipos = await Team.findAll({
-            where:{
-                nombre: {
-                    [Op.iLike]: `%${nombre}%`,
-                }
-            },
-            include: [Player, Match]
-        })
-        return res.json(resEquipos)
-    } catch (error) {
-        return res.send(error)
+    if(nombre){
+        try {
+            const resJugadores = await Player.findAll({
+                where:{
+                    nombre:{
+                        [Op.iLike]: `%${nombre}%`
+                    }
+                },
+                include: [Team]
+            })
+            return res.json(resJugadores)
+        } catch (error) {
+            return res.send(error)
+        }
     }
+    else return res.status(400).send("No has pasado ningun parámetro de búsqueda")
 })
+
+//BUSCAR POR DEPARTAMENTO
+
+route.get('/buscar/departamento/:departamento', async (req, res) => {
+    const { departamento } = req.params;
+
+    if(departamento){
+        try {
+            const resJugadores = await Player.findAll({
+                where:{
+                    departamento:{
+                        [Op.iLike]: `%${departamento}%`
+                    }
+                },
+                include: [Team]
+            })
+            return res.json(resJugadores)
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    else return res.status(400).send("No has pasado ningun parámetro de búsqueda")
+})
+
+//BUSCAR POR ALTURA
+
+route.get('/buscar/altura/:altura', async (req, res) => {
+    const { altura } = req.params;
+
+    if(altura){
+        try {
+            const resJugadores = await Player.findAll({
+                where:{
+                    altura
+                },
+                include: [Team]
+            })
+            return res.json(resJugadores)
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    else return res.status(400).send("No has pasado ningun parámetro de búsqueda")
+})
+
+//BUSCAR POR PESO
+
+route.get('/buscar/peso/:peso', async (req, res) => {
+    const { peso } = req.params;
+
+    if(peso){
+        try {
+            const resJugadores = await Player.findAll({
+                where:{
+                    peso
+                },
+                include: [Team]
+            })
+            return res.json(resJugadores)
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    else return res.status(400).send("No has pasado ningun parámetro de búsqueda")
+})
+
+//BUSCAR POR POSICION
+
+route.get('/buscar/posicion/:posicion', async (req, res) => {
+    const { posicion } = req.params;
+
+    if(posicion){
+        try {
+            const resJugadores = await Player.findAll({
+                where:{
+                    posicion
+                },
+                include: [Team]
+            })
+            return res.json(resJugadores)
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    else return res.status(400).send("No has pasado ningun parámetro de búsqueda")
+})
+
+//BUSCAR POR NUMERO DE CAMISETA
+
+route.get('/buscar/numero/:numero', async (req, res) => {
+    const { numero } = req.params;
+
+    if(numero){
+        try {
+            const resJugadores = await Player.findAll({
+                where:{
+                    numero
+                },
+                include: [Team]
+            })
+            return res.json(resJugadores)
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    else return res.status(400).send("No has pasado ningun parámetro de búsqueda")
+})
+
 
 //=====================================================================================================
 //
