@@ -13,9 +13,12 @@ const MessageSend = require('./models/MessageSend');
 const MessageReceived = require('./models/MessageReceived');
 const Chat = require('./models/Chat');
 const Match = require('./models/Match');
-const Like = require('./models/Like');
 const Comment = require('./models/Comment');
 const Cart = require('./models/Cart');
+const MatchTeam = require('./models/MatchTeam');
+const LikeNew = require('./models/LikeNew');
+const LikeComment = require('./models/LikeComment');
+const CartProduct = require('./models/CartProduct');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -63,13 +66,14 @@ const rMessageSend = MessageSend(sequelize)
 const rMessageReceived = MessageReceived(sequelize)
 const rChat = Chat(sequelize)
 const rMatch = Match(sequelize)
-const rLike = Like(sequelize)
 const rComment = Comment(sequelize)
 const rCart = Cart(sequelize)
+const rMatchTeam = MatchTeam(sequelize) //Tabla intermedia entre partido y equipo
+const rLikeNew = LikeNew(sequelize) // tabla intermedia entre "Me gusta" y Noticia
+const rLikeComment = LikeComment(sequelize) // tabla intermedia entre "Me gusta" y Comentario
+const rCartProduct = CartProduct(sequelize)// tabla intermedia entre carrito y producto
 
 // Relaciones
-
-//Usuario
 
 //Relacion carrito-usuario
 rUser.hasOne(rCart)
@@ -89,10 +93,43 @@ rChat.hasMany(rMessageReceived)
 rMessageSend.belongsTo(rChat)
 rMessageReceived.belongsTo(rChat)
 
+//Relacion entre partido-equipo
+rMatch.belongsToMany(rTeam, { through: rMatchTeam })
+rTeam.belongsToMany(rMatch, { through: rMatchTeam })
 
+//Relacion equipo-jugador
+rTeam.hasMany(rPlayer)
+rPlayer.belongsTo(rTeam)
 
-/* Country.belongsToMany(Activity, { through: 'countryActivity'})
-Activity.belongsToMany(Country, { through: 'countryActivity'}) */
+//Relacion usuario-carrito
+rUser.hasOne(rCart)
+rCart.belongsTo(rUser)
+
+//Relacion carrito-product
+rCart.belongsToMany(rProduct, { through: rCartProduct })
+rProduct.belongsToMany(rCart, { through: rCartProduct })
+
+//Relacion usuario - "me gusta comentarios"
+rUser.hasMany(rLikeComment)
+rLikeComment.belongsTo(rUser)
+
+//Relacion usuario - "me gusta comentarios"
+rUser.hasMany(rLikeNew)
+rLikeNew.belongsTo(rUser)
+
+//Relacion noticia-imagen noticia
+rNew.hasMany(rNewImg)
+rNewImg.belongsTo(rNew)
+
+//Relacion noticia-Comentario
+rNew.hasMany(rComment)
+rComment.belongsTo(rNew)
+
+//Relacion usuario - comentario
+rUser.belongsToMany(rComment, { through: 'CommentUser' })
+rComment.belongsToMany(rUser, { through: 'CommentUser' })
+
+//Fin relaciones
 
 module.exports = {
   conexion: sequelize,     // para importart la conexión { conn } = require('./db.js');
