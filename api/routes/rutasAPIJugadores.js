@@ -207,28 +207,41 @@ route.get('/buscar/numero/:numero', async (req, res) => {
 */
 
 route.post('/add', async (req, res) => {
-    const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departamento } = req.body;
+    const { nombre, equipoID, departamento, altura, peso, posicion, numero, foto, informacion } = req.body;
 
-    if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
+    if(!nombre || !equipoID || !departamento || !altura || !peso || !posicion || !numero || !foto || !informacion) return res.status(400).json({error: "Faltan algunos campos para agregar al jugador"})
 
     try {
-        await Team.create({
+        const newPlayer = await Player.create({
             nombre,
-            urlEscudo,
-            pagina,
-            fechaCreacion,
-            siglas,
-            departamento
+            equipoID,
+            departamento,
+            altura,
+            peso,
+            posicion,
+            numero,
+            foto,
+            informacion
         })
+
+        const teamPlayer = await Team.findByPk(equipoID)
+
+        await teamPlayer.addPlayers(newPlayer)
+        await newPlayer.setTeam(teamPlayer)
+
         return res.status(201).send({
             nombre,
-            urlEscudo,
-            pagina,
-            fechaCreacion,
-            siglas,
-            departamento
+            equipoID,
+            departamento,
+            altura,
+            peso,
+            posicion,
+            numero,
+            foto,
+            informacion
         })
     } catch (error) {
+        console.log(error);
         return res.status(400).send(error)
     }
 })
