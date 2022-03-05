@@ -9,8 +9,6 @@ const morgan = require('morgan');
 const cors = require('cors')
 const routes = require('./routes/');
 
-//require('./db.js');
-
 const server = express();
 
 server.name = 'API Entretiempo';

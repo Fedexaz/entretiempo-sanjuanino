@@ -19,6 +19,7 @@ const MatchTeam = require('./models/MatchTeam');
 const LikeNew = require('./models/LikeNew');
 const LikeComment = require('./models/LikeComment');
 const CartProduct = require('./models/CartProduct');
+const ApiKey = require('./models/ApiKey');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
@@ -72,6 +73,7 @@ const rMatchTeam = MatchTeam(sequelize) //Tabla intermedia entre partido y equip
 const rLikeNew = LikeNew(sequelize) // tabla intermedia entre "Me gusta" y Noticia
 const rLikeComment = LikeComment(sequelize) // tabla intermedia entre "Me gusta" y Comentario
 const rCartProduct = CartProduct(sequelize)// tabla intermedia entre carrito y producto
+const rApiKey = ApiKey(sequelize)//api key para acceder a la API
 
 // Relaciones
 
@@ -93,13 +95,6 @@ rChat.hasMany(rMessageReceived)
 rMessageSend.belongsTo(rChat)
 rMessageReceived.belongsTo(rChat)
 
-//Relacion entre partido-equipo
-rMatch.belongsToMany(rTeam, { through: rMatchTeam })
-rTeam.belongsToMany(rMatch, { through: rMatchTeam })
-
-//Relacion equipo-jugador
-rTeam.hasMany(rPlayer)
-rPlayer.belongsTo(rTeam)
 
 //Relacion usuario-carrito
 rUser.hasOne(rCart)
@@ -129,8 +124,34 @@ rComment.belongsTo(rNew)
 rUser.belongsToMany(rComment, { through: 'CommentUser' })
 rComment.belongsToMany(rUser, { through: 'CommentUser' })
 
+//Relacion entre partido-equipo
+rMatch.belongsToMany(rTeam, { through: rMatchTeam })
+rTeam.belongsToMany(rMatch, { through: rMatchTeam })
+
+//Relacion equipo-jugador
+rTeam.hasMany(rPlayer)
+rPlayer.belongsTo(rTeam)
+
 //Fin relaciones
 
 module.exports = {
-  conexion: sequelize,     // para importart la conexión { conn } = require('./db.js');
+    conexion: sequelize,     // para importar la conexión { conn } = require('./db.js');
+    User: rUser,
+    Team: rTeam,
+    Pronostic: rPronostic,
+    Product: rProduct,
+    Player: rPlayer,
+    NewImg: rNewImg,
+    New: rNew,
+    MessageSend: rMessageSend,
+    MessageReceived: rMessageReceived,
+    Chat: rChat,
+    Match: rMatch,
+    Comment: rComment,
+    Cart: rCart,
+    MatchTeam: rMatchTeam,
+    LikeNew: rLikeNew,
+    LikeComment: rLikeComment,
+    CartProduct: rCartProduct,
+    ApiKey: rApiKey
 };

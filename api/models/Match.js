@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
     class Match extends Model {}
 
     Match.init({
-        fecha:{
+        fechaJuego:{
             type: DataTypes.DATEONLY,
             allowNull: false
         },
@@ -60,6 +60,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: evento[0]
         },
+        fecha:{
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
     }, 
     {
         sequelize,
