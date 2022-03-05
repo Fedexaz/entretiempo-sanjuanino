@@ -45,6 +45,9 @@ route.get('/id/:id', async (req, res) => {
             const resEquipo = await Team.findByPk(Number(id), {
                 include: [Player, Match]
             })
+            
+            if(!resEquipo) return res.status(404).send("ID de equipo no encontrado")
+
             return res.json(resEquipo)
         } catch (error) {
             return res.send(error)
@@ -97,6 +100,9 @@ route.get('/:id/jugadores', async (req, res) => {
             const resEquipo = await Team.findByPk(Number(id), {
                 include: Player
             })
+
+            if(!resEquipo) return res.status(404).send("ID de equipo no encontrado")
+
             return res.json(resEquipo.Players)
         } catch (error) {
             return res.send(error)
@@ -168,11 +174,13 @@ route.put('/edit/:id', async (req, res) => {
 
         const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departament, cancha, descripcion } = req.body;
 
-        if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento || !cancha || !descripcion) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
+        if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento || !cancha || !descripcion) return res.status(400).json({error: "Faltan algunos campos para editar el equipo"})
 
         try {
             
             const teamToEdit = await Team.findByPk(Number(id))
+
+            if(!teamToEdit) return res.status(404).send("ID de jugador no encontrado")
 
             teamToEdit.nombre = nombre
             teamToEdit.urlEscudo = urlEscudo
@@ -193,6 +201,14 @@ route.put('/edit/:id', async (req, res) => {
     else return res.status(400).send("ID inválido (mayor o igual a 1)")
 })
 
+/*
+
+    RUTA ---------> /api/equipos/delete/:id
+
+    Aquí se borra un equipo y devuelve un mensaje de exito o fallo
+
+*/
+
 route.delete('/delete/:id', async (req, res) => {
 
     const { id } = req.params;
@@ -202,8 +218,11 @@ route.delete('/delete/:id', async (req, res) => {
     if(Number(id) > 0){
 
         try {
-            const teamToEdit = await Team.findByPk(Number(id))
-            const name = teamToEdit.nombre
+            const teamToDelete = await Team.findByPk(Number(id))
+
+            if(!teamToDelete) return res.status(404).send("ID de equipo no encontrado")
+
+            const name = teamToDelete.nombre
             
             await Team.destroy({
                 where:{
