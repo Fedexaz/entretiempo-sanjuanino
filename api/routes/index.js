@@ -8,6 +8,8 @@ const rutasAPIPartidos = require(`./rutasAPIPartidos`)
 
 const rutasAPIJugadores = require(`./rutasAPIJugadores`)
 
+const entretiempoRouteController = require('./entretiempo/')
+
 const comprobarApiKey = async (req, res, next) => {
     const { key } = req.query;
 
@@ -31,12 +33,14 @@ const comprobarApiKey = async (req, res, next) => {
     }
 }
 
-router.use('/api/', comprobarApiKey)
+router.use('/api', comprobarApiKey)
 
 router.use('/api/equipos', rutasAPIEquipos)
 
 router.use('/api/partidos', rutasAPIPartidos)
 
 router.use('/api/jugadores', rutasAPIJugadores)
+
+router.use('/entretiempo', entretiempoRouteController)
 
 module.exports = router;
