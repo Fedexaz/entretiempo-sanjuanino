@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 
-const { Team, Player, Match } = require('../database')
+const { Team, Player, Match, ApiKey } = require('../database')
 
 const route = require('express').Router()
 

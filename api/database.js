@@ -21,7 +21,7 @@ const CartProduct = require('./models/CartProduct');
 const ApiKey = require('./models/ApiKey');
 
 const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
-  
+
 let sequelize =
     process.env.NODE_ENV === "production"
     ?
