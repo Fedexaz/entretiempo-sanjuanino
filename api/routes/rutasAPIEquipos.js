@@ -1,4 +1,5 @@
 const { Op } = require('sequelize')
+const { checkAuthenticatedAdmin } = require('../controllers/auth')
 
 const { Team, Player, Match, ApiKey } = require('../database')
 
@@ -125,7 +126,7 @@ route.get('/:id/jugadores', async (req, res) => {
 
 */
 
-route.post('/add', async (req, res) => {
+route.post('/add', checkAuthenticatedAdmin ,async (req, res) => {
     const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departamento, cancha, descripcion } = req.body;
 
     if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento || !cancha || !descripcion) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
@@ -164,7 +165,7 @@ route.post('/add', async (req, res) => {
 
 */
 
-route.put('/edit/:id', async (req, res) => {
+route.put('/edit/:id', checkAuthenticatedAdmin ,async (req, res) => {
 
     const { id } = req.params;
 
@@ -209,7 +210,7 @@ route.put('/edit/:id', async (req, res) => {
 
 */
 
-route.delete('/delete/:id', async (req, res) => {
+route.delete('/delete/:id', checkAuthenticatedAdmin, async (req, res) => {
 
     const { id } = req.params;
 

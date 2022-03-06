@@ -1,4 +1,5 @@
 const { Op } = require('sequelize')
+const { checkAuthenticatedAdmin } = require('../controllers/auth')
 
 const { Team, Player, Match } = require('../database')
 
@@ -266,7 +267,7 @@ route.get('/hora/:hora', async (req, res) => {
 
 */
 
-route.post('/add', async (req, res) => {
+route.post('/add', checkAuthenticatedAdmin, async (req, res) => {
     const { fechaPartido, hora, lugar, cancha, evento, fechaEvento, idLocal, idVisitante, golesLocal, golesVisitante, jugado } = req.body;
 
     if(!fechaPartido || !hora || !lugar || !cancha || !evento || !fechaEvento) return res.status(400).json({error: "Faltan algunos campos para agregar el partido"})
@@ -312,7 +313,7 @@ route.post('/add', async (req, res) => {
 
 */
 
-route.put('/edit/:id', async (req, res) => {
+route.put('/edit/:id', checkAuthenticatedAdmin, async (req, res) => {
 
     const { id } = req.params;
 
@@ -360,7 +361,7 @@ route.put('/edit/:id', async (req, res) => {
 
 */
 
-route.delete('/delete/:id', async (req, res) => {
+route.delete('/delete/:id', checkAuthenticatedAdmin, async (req, res) => {
 
     const { id } = req.params;
 

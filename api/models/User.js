@@ -65,6 +65,7 @@ module.exports = (sequelize) => {
         email:{
             type: DataTypes.STRING(128),
             allowNull: false,
+            unique: true,
             checkEmail(value){
                 if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ig.test(value)){                 
                     throw new Error("Email no válido")
@@ -99,7 +100,7 @@ module.exports = (sequelize) => {
         fechaNac:{
             type: DataTypes.DATEONLY,
             allowNull: false,
-            defaultValue: DataTypes.NOW
+            defaultValue: '2000-10-10'
         },
         puntos:{
             type: DataTypes.BIGINT,
@@ -108,6 +109,11 @@ module.exports = (sequelize) => {
         urlPerfil:{
             type: DataTypes.TEXT,
             defaultValue: "no-img"
+        },
+        rango:{
+            type: DataTypes.ENUM(["USUARIO", "MODERADOR", "ADMINISTRADOR"]),
+            allowNull: false,
+            defaultValue: "USUARIO"
         }
     }, 
     {

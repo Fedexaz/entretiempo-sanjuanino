@@ -1,15 +1,15 @@
-const router = require('express').Router()
+const rutasEntretiempo = require('express').Router()
 
 const rutaNoticias = require('./rutaNoticias')
 
 const rutaPronosticos = require('./rutaPronosticos')
 
-const rutaUsuarios = require('./rutaUsuario')
+const { router } = require('./rutaUsuario')
 
-router.use('/usuarios', rutaUsuarios)
+rutasEntretiempo.use('/usuarios', router)
 
-router.use('/pronosticos', rutaPronosticos)
+rutasEntretiempo.use('/pronosticos', rutaPronosticos)
 
-router.use('/noticias', rutaNoticias)
+rutasEntretiempo.use('/noticias', rutaNoticias)
 
-module.exports = router
+module.exports = rutasEntretiempo
