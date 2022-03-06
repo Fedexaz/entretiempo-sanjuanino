@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
     Match.init({
         fechaPartido:{
             type: DataTypes.DATEONLY,
-            allowNull: false
+            allowNull: false,
         },
         hora:{
             type: DataTypes.TIME,
@@ -63,6 +63,27 @@ module.exports = (sequelize) => {
         fechaEvento:{
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        idLocal:{
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        idVisitante:{
+            type: DataTypes.BIGINT,
+            allowNull: false
+        },
+        golesLocal:{
+            type: DataTypes.BIGINT,
+            allowNull: false
+        },
+        golesVisitante:{
+            type: DataTypes.BIGINT,
+            allowNull: false
+        },
+        jugado:{
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     }, 
     {

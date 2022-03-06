@@ -15,7 +15,6 @@ const Chat = require('./models/Chat');
 const Match = require('./models/Match');
 const Comment = require('./models/Comment');
 const Cart = require('./models/Cart');
-const MatchTeam = require('./models/MatchTeam');
 const LikeNew = require('./models/LikeNew');
 const LikeComment = require('./models/LikeComment');
 const CartProduct = require('./models/CartProduct');
@@ -25,7 +24,7 @@ const { USER_DB, PASSWORD_DB, HOST_DB, NAME_DB } = process.env;
   
 let sequelize =
     process.env.NODE_ENV === "production"
-    ? 
+    ?
         new Sequelize({
             database: NAME_DB,
             dialect: "postgres",
@@ -69,7 +68,6 @@ const rChat = Chat(sequelize)
 const rMatch = Match(sequelize)
 const rComment = Comment(sequelize)
 const rCart = Cart(sequelize)
-const rMatchTeam = MatchTeam(sequelize) //Tabla intermedia entre partido y equipo
 const rLikeNew = LikeNew(sequelize) // tabla intermedia entre "Me gusta" y Noticia
 const rLikeComment = LikeComment(sequelize) // tabla intermedia entre "Me gusta" y Comentario
 const rCartProduct = CartProduct(sequelize)// tabla intermedia entre carrito y producto
@@ -124,10 +122,6 @@ rComment.belongsTo(rNew)
 rUser.belongsToMany(rComment, { through: 'CommentUser' })
 rComment.belongsToMany(rUser, { through: 'CommentUser' })
 
-//Relacion entre partido-equipo
-rMatch.belongsToMany(rTeam, { through: rMatchTeam })
-rTeam.belongsToMany(rMatch, { through: rMatchTeam })
-
 //Relacion equipo-jugador
 rTeam.hasMany(rPlayer)
 rPlayer.belongsTo(rTeam)
@@ -149,7 +143,6 @@ module.exports = {
     Match: rMatch,
     Comment: rComment,
     Cart: rCart,
-    MatchTeam: rMatchTeam,
     LikeNew: rLikeNew,
     LikeComment: rLikeComment,
     CartProduct: rCartProduct,
