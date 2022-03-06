@@ -56,7 +56,7 @@ module.exports = (sequelize) => {
     User.init({
         nombre:{
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
         },
         apellido:{
             type: DataTypes.STRING(100),
@@ -71,6 +71,10 @@ module.exports = (sequelize) => {
                 }
                 else return value
             }
+        },
+        password:{
+            type: DataTypes.TEXT,
+            allowNull:false
         },
         dni:{
             type: DataTypes.FLOAT,
