@@ -25,8 +25,6 @@ const comprobarApiKey = async (req, res, next) => {
     
         if(!apiKey) res.status(400).send("Si deseas acceder a la API debes comprar o renovar una API KEY en https://www.entretiemposj.com/apikey")
 
-        console.log(apiKey)
-    
         if(apiKey) return next()
     } catch (error) {
         return res.status(401).send("Ocurrió un error")

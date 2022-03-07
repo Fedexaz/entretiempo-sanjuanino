@@ -13,7 +13,7 @@ require('dotenv').config()
 
 servidor.listen(process.env.PORT, () => {
     conexion.sync({
-        force: true
+        force: false
     }).then((res) => {
         console.log("Sincronización con la base de datos exitosa!");
     })

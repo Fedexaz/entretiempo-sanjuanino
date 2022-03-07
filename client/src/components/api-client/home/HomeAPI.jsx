@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { useEffect } from 'react'
 
-import actions from '../../../redux/actions'
+import { getEquipos, getPartidos, getJugadores} from '../../../redux/actions'
 
 function HomeAPI() {
   const partidos = useSelector(state => state.partidos)
@@ -14,9 +14,9 @@ function HomeAPI() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(actions.getEquipos())
-    dispatch(actions.getPartidos())
-    dispatch(actions.getJugadores())
+    dispatch(getEquipos())
+    dispatch(getPartidos())
+    dispatch(getJugadores())
   }, [])
   
 

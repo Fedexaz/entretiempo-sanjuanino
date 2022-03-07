@@ -126,7 +126,7 @@ route.get('/:id/jugadores', async (req, res) => {
 
 */
 
-route.post('/add', checkAuthenticatedAdmin ,async (req, res) => {
+route.post('/add', checkAuthenticatedAdmin, async (req, res) => {
     const { nombre, urlEscudo, pagina, fechaCreacion, siglas, departamento, cancha, descripcion } = req.body;
 
     if(!nombre || !urlEscudo || !pagina || !fechaCreacion || !siglas || !departamento || !cancha || !descripcion) return res.status(400).json({error: "Faltan algunos campos para agregar el equipo"})
