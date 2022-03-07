@@ -32,6 +32,16 @@ function NavBar() {
             </ul>
             <ul className="navbar-nav mr-auto">
               <li className='nav-item mt-2'>
+                <Link to='/entretiempo/login' className='nav-link'>
+                  Inicia sesión
+                </Link>
+              </li>
+              <li className='nav-item mt-2'>
+                <Link to='/entretiempo/register' className='nav-link border border-info'>
+                  Registrate
+                </Link>
+              </li>
+              <li className='nav-item mt-2'>
                 <Link to='/api/home' className='nav-link border border-danger'>
                   ¡Accede a nuestra API!
                 </Link>
