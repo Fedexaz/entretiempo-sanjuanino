@@ -17,6 +17,7 @@ function HomeAPI() {
     dispatch(getEquipos())
     dispatch(getPartidos())
     dispatch(getJugadores())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
 
