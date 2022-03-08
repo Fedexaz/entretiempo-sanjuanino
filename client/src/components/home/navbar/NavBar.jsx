@@ -9,20 +9,66 @@ function NavBar() {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">Navbar</Link>
+          <Link className="navbar-brand" to="/">Entretiempo SJ</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="#">Link</Link>
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" to="#" id="partidosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Partidos
+                </Link>
+                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="partidosDropdown">
+                  <li><Link className="dropdown-item" to="#">Action</Link></li>
+                  <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                </ul>
               </li>
               <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                <Link className="nav-link dropdown-toggle" to="#" id="equiposDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Equipos
                 </Link>
-                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="equiposDropdown">
+                  <li><Link className="dropdown-item" to="#">Action</Link></li>
+                  <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" to="#" id="jugadoresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Jugadores
+                </Link>
+                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="jugadoresDropdown">
+                  <li><Link className="dropdown-item" to="#">Action</Link></li>
+                  <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" to="#" id="tablasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Tablas
+                </Link>
+                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="tablasDropdown">
+                  <li><Link className="dropdown-item" to="#">Action</Link></li>
+                  <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                </ul>
+              </li>
+              <li className='nav-item'>
+                <Link to='/' className='nav-link'>
+                  Noticias
+                </Link>
+              </li>
+              <li className="nav-item dropdown">
+                <Link className="nav-link dropdown-toggle" to="#" id="extrasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Extras
+                </Link>
+                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="extrasDropdown">
                   <li><Link className="dropdown-item" to="#">Action</Link></li>
                   <li><Link className="dropdown-item" to="#">Another action</Link></li>
                   <li><hr className="dropdown-divider" /></li>
@@ -47,10 +93,10 @@ function NavBar() {
                 </Link>
               </li>
               <li className="nav-item dropstart">
-                <Link className="nav-link" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <Link className="nav-link" to="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src={logo} alt="logo" className='img-thumbnail' style={{borderRadius: '100%', width: '40px', height: '40px'}} />
                 </Link>
-                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="perfilDropdown">
                   <li><Link className="dropdown-item" to="#">Action</Link></li>
                   <li><Link className="dropdown-item" to="#">Another action</Link></li>
                   <li><hr className="dropdown-divider" /></li>

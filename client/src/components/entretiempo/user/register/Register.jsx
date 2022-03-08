@@ -2,23 +2,22 @@ import React from 'react'
 
 function Register() {
   return (
-    <div>
-      <h1 className='d-flex justify-content-center mt-4'>¡Registrate en Entretiempo!</h1>
-      <div className="row">
+    <div className='row mt-5'>
+      <div className="col-md-5 d-flex align-items-center flex-column">
+        <h1 className='mt-4'>Registrate</h1>
+        <h6 className='mb-4'>&nbsp;en Entretiempo</h6>
+      </div>
+      <div className="mt-5 col-md-7 mt-1">
         <form method='POST'>
-          <div className="d-flex justify-content-center">
-            <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input type="email" name="email" id="email" className="form-control" placeholder="Ingresa un email" aria-describedby="helpId" />
-              <small id="helpId" className="text-muted">Ingresá un email válido ej: correo@correo.com</small>
-            </div>
+          <div className="form-group">
+            <label htmlFor="email">Correo electrónico</label>
+            <input type="email" name="email" id="email" className="form-control" placeholder="Ingresa un email" aria-describedby="helpId" />
+            <small id="helpId" className="text-muted">Ingresá un email válido ej: correo@correo.com.</small>
           </div>
-          <div className="d-flex justify-content-center mt-4">
-            <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input type="email" name="email" id="email" className="form-control" placeholder="Ingresa un email" aria-describedby="helpId" />
-              <small id="helpId" className="text-muted">Ingresá un email válido ej: correo@correo.com</small>
-            </div>
+          <div className="form-group mt-4">
+            <label htmlFor="email">Contraseña</label>
+            <input type="password" name="password" id="password" className="form-control" placeholder="Ingresa una contraseña" aria-describedby="helpId2" />
+            <small id="helpId2" className="text-muted">Ingresá una contraseña (car. alfanuméricos).</small>
           </div>
         </form>
       </div>
