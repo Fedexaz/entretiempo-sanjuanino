@@ -16,6 +16,12 @@ module.exports = (sequelize) => {
         compradorID:{
             type: DataTypes.BIGINT,
             allowNull: false
+        },
+        fechaCompra:{
+            type: DataTypes.DATEONLY,
+        },
+        fechaRenovacion:{
+            type: DataTypes.DATEONLY,
         }
     },
     {
