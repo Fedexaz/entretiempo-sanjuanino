@@ -54,15 +54,42 @@ function Register() {
     })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     if(validarFormulario()){
-
+      
     }
-    else alert("Faltan completar algunos campos.")
   }
 
   const validarFormulario = () => {
+    let validado = true
+    let errorMsg = ''
 
+    const { email, password, password2, terminos } = input;
+
+    if(!email.length || error.email.length){
+      errorMsg += '\n\n* El email es incorrecto, revísalo\n\n'
+      validado = false
+    } 
+    
+    if(!password.length || error.password){ 
+      errorMsg += '* La contraseña debe contener almenos una Mayúscula, una Minúscula y un número, revísalo\n\n'
+      validado = false
+    }
+    
+    if(!password2.length || error.password2) {
+      errorMsg += '* Las contraseñas no coinciden, revísalo\n\n'
+      validado = false
+    }
+    
+    if(!terminos) {
+      errorMsg += '* No has aceptado los Términos y condiciones, revísalo'
+      validado = false
+    }
+
+    if(errorMsg.length) alert(errorMsg)
+
+    return validado
   }
 
 
@@ -86,18 +113,20 @@ function Register() {
           <div className="form-group">
             <label htmlFor="email" style={{fontSize: '20px'}}>Correo electrónico</label>
             <input type="email" name="email" id="email" className={`form-control ${error.email !== '' ? 'is-invalid' : ''} ${ input.email.length > 0 && error.email === '' ? 'is-valid': ''}`} placeholder="Ingresa un email" aria-describedby="helpId" value={input.email} onChange={handleChange} />
-            <small id="helpId" className={`${error.email && input.email.length > 1 ? 'text-danger' : 'text-muted'}`}>{error.email ? error.email : null}</small>
+            <small id="helpId" className={`${error.email && input.email.length > 0 ? 'text-danger' : 'text-muted'}`}>{error.email ? error.email : null}</small>
           </div>
           
           <div className="form-group mt-4">
             <label htmlFor="password" style={{fontSize: '20px'}}>Contraseña</label>
-            <input type="password" name="password" id="password" className={`form-control ${input.password.length > 1 && error.password !== '' ? 'is-invalid': ''} ${input.password.length > 1 && error.password === '' ? 'is-valid': ''}`} placeholder="Ingresa una contraseña" aria-describedby="helpId2" value={input.password} onChange={handleChange} />
+            <input type="password" name="password" id="password" className={`form-control ${input.password.length > 0 && error.password !== '' ? 'is-invalid': ''} ${input.password.length > 0 && error.password === '' ? 'is-valid': ''}`} placeholder="Ingresa una contraseña" aria-describedby="helpId2" value={input.password} onChange={handleChange} />
+            <small id="helpId2" className={`${error.password && input.password.length > 0 ? 'text-danger' : 'text-muted'}`}>{error.password ? error.password : null}</small>
           </div>
           
           <div className="form-group mt-4">
             <label htmlFor="password2" style={{fontSize: '20px'}}>Repite la contraseña</label>
-            <input type="password" name="password2" id="password2" className={`form-control ${error.password2.length > 1 && input.password !== input.password2 ? 'is-invalid' : ''} ${input.password2.length > 0 && input.password === input.password2 ? 'is-valid' : ''}`} placeholder="Reingresa la contraseña" aria-describedby="helpId2" value={input.password2} onChange={handleChange} />
-          </div>
+            <input type="password" name="password2" id="password2" className={`form-control ${input.password2.length > 0 && input.password !== input.password2 ? 'is-invalid' : ''} ${input.password2.length > 0 && input.password === input.password2 ? 'is-valid' : ''}`} placeholder="Reingresa la contraseña" aria-describedby="helpId2" value={input.password2} onChange={handleChange} />
+            <small id="helpId2" className={`${error.password2 && input.password2.length > 0 ? 'text-danger' : 'text-muted'}`}>{error.password2 && input.password2.length > 0 ? 'Las contraseñas no coinciden' : null}</small> 
+         </div>
           <div className="form-group mt-4">
             <input type="checkbox" name="terminos" id="terminos" onChange={e => {
               setError({
@@ -106,8 +135,9 @@ function Register() {
               })
               setInput({...input, terminos: e.target.checked})
               }
-            } />
-            <span>&nbsp;Acepto los <Link to='/'>Términos y condiciones.</Link></span>
+            } required/>
+            <span className='custom-control-label'>&nbsp;Acepto los <Link to='/'>Términos y condiciones.</Link></span>
+            <div className="invalid-feedback">{error.terminos}</div>
           </div>
           <br />
           <input type="submit" value="Registrarme" className='btn btn-primary mb-3' />
