@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const passport = require('passport');
 const {
     userRegisterController,
     userLoginController,
@@ -9,10 +10,10 @@ const {
 
 const userRoutes = Router();
 
-/* userRoutes.get('/', userGetDataController);
-userRoutes.put('/', userEditController);
+userRoutes.get('/', passport.authenticate('jwt', { session: false }), userGetDataController);
+userRoutes.put('/', passport.authenticate('jwt', { session: false }), userEditController);
 userRoutes.post('/register', userRegisterController);
 userRoutes.post('/login', userLoginController);
-userRoutes.post('/recover', userRecoverPasswordController); */
+userRoutes.post('/recover', userRecoverPasswordController);
 
 module.exports = userRoutes;

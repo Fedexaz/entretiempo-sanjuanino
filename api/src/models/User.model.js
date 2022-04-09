@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
@@ -37,5 +38,24 @@ const userSchema = new Schema({
         type: Date
     }
 });
+
+userSchema.pre('save', async function (next) {
+    const user = this;
+
+    if (!user.isModified('password')) return next();
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(user.password, salt);
+        user.password = hash;
+        next();
+    } catch (error) {
+        throw error;
+    }
+});
+
+userSchema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+}
 
 module.exports = model("User", userSchema);
