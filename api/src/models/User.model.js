@@ -6,14 +6,26 @@ const userSchema = new Schema({
         unique: true,
         required: true
     },
-    password:{
-        type: String,
-        required: true
-    },
     email:{
         type: String,
         required: true,
         unique: true
+    },
+    password:{
+        type: String,
+        required: true
+    },
+    profilePic:{
+        type: String
+    },
+    country:{
+        type: String
+    },
+    province:{
+        type: String
+    },
+    departamento:{
+        type: String
     },
     team: {
         type: String
