@@ -1,3 +1,45 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.center-completo{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.flex-row{
+    flex-direction: row;
+}
+
+.flex-row-centrado{
+    display: flex;
+    justify-content: center;
+}
+
+.flex-row-left{
+    display: flex;
+    justify-content: flex-start;    
+}
+
+.flex-row-right{
+    display: flex;
+    justify-content: flex-end;    
+}
+
+.flex-col{
+    flex-direction: column;
+}
+
+.flex-col-centrado{
+    display: flex;
+    align-items: center;
+}
+
+.flex-col-left{
+    display: flex;
+    align-items: flex-start;    
+}
+
+.flex-col-right{
+    display: flex;
+    align-items: flex-end;    
+}
