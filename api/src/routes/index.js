@@ -1,6 +1,8 @@
 const { Router } = require('express');
-const userRoutes = require('./user.route');
 
+const tokenAPIVerify = require('../middlewares/apiToken');
+
+const userRoutes = require('./user.route');
 const eventRoutes = require('./event.route');
 const matchRoutes = require('./match.route');
 const playerRoutes = require('./player.route');
@@ -9,12 +11,16 @@ const tokenAPIRoutes = require('./tokenAPI.route');
 
 const rutas = Router();
 
+//Rutas entretiempo
 rutas.use('/user', userRoutes);
 
-rutas.use('/api/event', eventRoutes);
-rutas.use('/api/match', matchRoutes);
-rutas.use('/api/player', playerRoutes);
-rutas.use('/api/team', teamRoutes);
-rutas.use('/tokenAPI', tokenAPIRoutes);
+//Rutas API
+//rutas.use('/api/event', tokenAPIVerify, eventRoutes);
+rutas.use('/api/match', tokenAPIVerify, matchRoutes);
+//rutas.use('/api/player', tokenAPIVerify, playerRoutes);
+//rutas.use('/api/team', tokenAPIVerify, teamRoutes);
+
+//Ruta para interactuar con la API
+//rutas.use('/tokenAPI', tokenAPIRoutes);
 
 module.exports = rutas;

@@ -1,4 +1,4 @@
-import User from '../models/User.model';
+const User = require('../models/User.model');
 
 const verifyEmail = async (request, response, next) => {
 
@@ -16,4 +16,4 @@ const verifyEmail = async (request, response, next) => {
 
 };
 
-export default verifyEmail
+module.exports = verifyEmail;

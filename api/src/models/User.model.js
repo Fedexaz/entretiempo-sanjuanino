@@ -28,6 +28,11 @@ const userSchema = new Schema({
     departamento:{
         type: String
     },
+    rol: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     team: {
         type: String
     },
