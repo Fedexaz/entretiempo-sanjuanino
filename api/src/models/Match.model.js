@@ -9,7 +9,15 @@ const matchSchema = new Schema({
         type: String,
         required: true
     },
+    provincia: {
+        type: String,
+        required: true
+    },
     departamento: {
+        type: String,
+        required: true
+    },
+    cancha: {
         type: String,
         required: true
     },
@@ -22,6 +30,22 @@ const matchSchema = new Schema({
         type: String,
         required: true,
         default: 'A convenir'
+    },
+    golesLocal: {
+        type: Number,
+        required: true
+    },
+    golesVisitante: {
+        type: Number,
+        required: true
+    },
+    evento: {
+        type: String,
+        required: true
+    },
+    creadoPor: {
+        type: String,
+        required: true
     }
 });
 
