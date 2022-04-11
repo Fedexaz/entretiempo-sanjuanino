@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -8,6 +9,19 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 export default function Home({ logged }) {
+  const [matches, setMatches] = useState([]);
+
+  useEffect(() => {
+    (async function cargar() {
+      try {
+        const res = await axios.get(`/api/match/all?key=${process.env.REACT_APP_TOKEN_API_ENTRETIEMPO ? process.env.REACT_APP_TOKEN_API_ENTRETIEMPO : 'fede'}`);
+        setMatches(res.data.data);
+      } catch (error) {
+        console.log(error.response.message);
+      }
+    })();
+  }, []);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ background: '#E4F2FC', marginBottom: '20px', border: 'solid 1px #AEDAFC', padding: '20px', borderRadius: '5px' }}>
@@ -16,9 +30,6 @@ export default function Home({ logged }) {
         </Typography>
         <Typography variant='h5'>
           Todo el fútbol en una sóla página
-        </Typography>
-        <Typography variant='body1' sx={{ maxWidth: '1000px' }}>
-          Bienvenido a <strong>Entretiempo Sanjuanino</strong>, aquí podrás ver las estadísticas de los partidos del fútbol de San Juan en tiempo real y al alcance de tu PC o Celular. También podrás consultar las tablas de posiciones, los torneos ¡y si estás registrado en la plataforma tendrás beneficios exlusivos (<i>como los pronósticos, por ejemplo</i>)!
         </Typography>
       </Box>
       <Card sx={{ minWidth: 275, margin: '10px' }}>
@@ -37,7 +48,16 @@ export default function Home({ logged }) {
           Últimos 4 partidos
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-          Renderizar los últimos 4 partidos
+          {
+            matches.length ?
+              <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
+                Hay partidos
+              </Typography>
+              :
+              <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
+                No hay partidos
+              </Typography>
+          }
         </Box>
         <CardActions>
           <Button size="small">Ver todos los partidos</Button>
