@@ -10,7 +10,10 @@ const userRegisterService = async (request) => {
         const user = await User.findOne({ email: request.email });
         if (user) throw new Error('El usuario ya existe');
 
-        const newUser = new User(request);
+        const newUser = new User({
+            ...request,
+            rol: 0
+        });
         await newUser.save();
 
         return newUser;
@@ -20,7 +23,7 @@ const userRegisterService = async (request) => {
 };
 
 const userLoginService = (user) => {
-    const data = { id: String(user._id), email: user.email, userName: user.userName };
+    const data = { id: String(user._id), email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team  };
     const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '10d' });
     return token;
 };

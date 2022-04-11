@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const passport = require('passport');
 const adminVerify = require('../middlewares/adminVerify');
 const {
     getAllMatchesController,
@@ -10,10 +11,10 @@ const {
 
 const matchRoutes = Router();
 
+matchRoutes.get('/', getMatchController);
 matchRoutes.get('/all', getAllMatchesController);
-matchRoutes.get('/:id', getMatchController);
-matchRoutes.post('/', adminVerify, addMatchController);
-matchRoutes.put('/', adminVerify, editMatchController);
-matchRoutes.delete('/', adminVerify, deleteMatchController);
+matchRoutes.post('/', passport.authenticate('jwt', { session: false }), adminVerify, addMatchController);
+matchRoutes.put('/', passport.authenticate('jwt', { session: false }), adminVerify, editMatchController);
+matchRoutes.delete('/:id', passport.authenticate('jwt', { session: false }), adminVerify, deleteMatchController);
 
 module.exports = matchRoutes;
