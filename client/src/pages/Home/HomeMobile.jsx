@@ -188,7 +188,7 @@ export default function HomeMobile() {
         {list()}
       </SwipeableDrawer>
       <Box sx={{ flexGrow: 1, p: 1 }}>
-        <Home />
+        <Home logged={logged} />
       </Box>
     </>
   );

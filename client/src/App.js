@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import HomeDesktop from './components/Home/HomeDesktop';
-import HomeMobile from './components/Home/HomeMobile';
+import HomeDesktop from './pages/Home/HomeDesktop';
+import HomeMobile from './pages/Home/HomeMobile';
 
-import Registro from './components/Registro/Registro';
-import Login from './components/Login/Login';
+import Registro from './pages/Registro/Registro';
+import Login from './pages/Login/Login';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 

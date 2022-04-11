@@ -245,7 +245,7 @@ export default function HomeDesktop() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Home />
+        <Home logged={logged} />
       </Box>
     </Box>
   );

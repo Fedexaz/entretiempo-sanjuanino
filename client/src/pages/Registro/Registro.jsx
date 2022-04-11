@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Footer from '../Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 const validationSchema = yup.object({
   userName: yup
