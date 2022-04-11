@@ -49,4 +49,4 @@ const matchSchema = new Schema({
     }
 });
 
-module.exports = model('match', matchSchema);
+module.exports = model('Match', matchSchema);
