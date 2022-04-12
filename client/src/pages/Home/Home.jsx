@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getAllMatches } from '../../services/data.service';
 import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -7,19 +7,20 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Match from '../../components/Home/Match';
 
 export default function Home({ logged }) {
   const [matches, setMatches] = useState([]);
 
+  const loadData = async () => {
+    setMatches(await getAllMatches());
+  };
+
   useEffect(() => {
-    (async function cargar() {
-      try {
-        const res = await axios.get(`/api/match/all?key=${process.env.REACT_APP_TOKEN_API_ENTRETIEMPO ? process.env.REACT_APP_TOKEN_API_ENTRETIEMPO : 'fede'}`);
-        setMatches(res.data.data);
-      } catch (error) {
-        console.log(error.response.message);
-      }
-    })();
+    loadData();
+    return () => {
+      setMatches([]);
+    };
   }, []);
 
   return (
@@ -39,27 +40,25 @@ export default function Home({ logged }) {
         <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
           Renderizar las últimas noticias
         </Box>
-        <CardActions>
+        <CardActions sx={{ float: 'right'}}>
           <Button size="small">Ver todas las noticias</Button>
         </CardActions>
       </Card>
       <Card sx={{ minWidth: 275, margin: '10px' }}>
         <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-          Últimos 4 partidos
+          Últimos 5 partidos
         </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {
             matches.length ?
-              <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-                Hay partidos
-              </Typography>
+              matches.slice(0, 4).map((m) => m.jugado ? null : <Match key={m._id} data={m} />)
               :
               <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
                 No hay partidos
               </Typography>
           }
         </Box>
-        <CardActions>
+        <CardActions sx={{ float: 'right'}}>
           <Button size="small">Ver todos los partidos</Button>
         </CardActions>
       </Card>
@@ -84,7 +83,7 @@ export default function Home({ logged }) {
               <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                 Renderizar los premios más canjeados
               </Box>
-              <CardActions>
+              <CardActions sx={{ float: 'right'}}>
                 <Button size="small">Ver todos los premios disponibles</Button>
               </CardActions>
             </Card>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { logOut } from '../../controllers/user.controller.js';
 import Home from './Home';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -31,7 +31,7 @@ const userIcons = [<HomeIcon />, <AccountCircleIcon />, <ReceiptIcon />];
 const entretiempoIcons = [<NewspaperIcon />, <SportsSoccerIcon />, <ListIcon />, <SportsIcon />];
 
 export default function HomeMobile() {
-
+  const actual = useLocation();
   useEffect(() => document.title = 'Inicio - Entretiempo Sanjuanino', []);
 
   const [logged, setLogged] = useState(localStorage.getItem('loggedIn') && localStorage.getItem('data') ? JSON.parse(localStorage.getItem('loggedIn')) : false);
@@ -66,81 +66,81 @@ export default function HomeMobile() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('')}>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('')}>
           <Typography sx={{ fontWeight: '300', fontSize: '20px' }}>Menú principal</Typography>
-        </ListItem>
-        <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('')}>
+        </ListItemButton>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('')}>
           <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
             {userIcons[0]}
           </ListItemIcon>
           <ListItemText primary={'Inicio'} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItem>
+        </ListItemButton>
         {
           logged ?
             <>
-              <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('cuenta')}>
+              <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('cuenta')}>
                 <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                   {userIcons[1]}
                 </ListItemIcon>
                 <ListItemText primary={`Perfil (${userName})`} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItem>
-              <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('pronosticos')}>
+              </ListItemButton>
+              <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('pronosticos')}>
                 <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                   {userIcons[2]}
                 </ListItemIcon>
                 <ListItemText primary={'Mis pronósticos'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItem>
+              </ListItemButton>
             </>
             :
             <>
-              <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('registro')}>
+              <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('registro')}>
                 <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                   <PersonAddAltIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Registrarme'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItem>
-              <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('login')}>
+              </ListItemButton>
+              <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('login')}>
                 <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                   <LoginIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Iniciar sesión'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItem>
+              </ListItemButton>
             </>
         }
       </List>
       <Divider />
       <List>
-        <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('noticias')}>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('noticias')}>
           <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
             {entretiempoIcons[0]}
           </ListItemIcon>
           <ListItemText primary={'Noticias'} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItem>
-        <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('partidos')}>
+        </ListItemButton>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('partidos')}>
           <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
             {entretiempoIcons[1]}
           </ListItemIcon>
           <ListItemText primary={'Partidos'} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItem>
-        <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('posiciones')}>
+        </ListItemButton>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('posiciones')}>
           <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
             {entretiempoIcons[2]}
           </ListItemIcon>
           <ListItemText primary={'Tabla de posiciones'} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItem>
-        <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('equipos')}>
+        </ListItemButton>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('equipos')}>
           <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
             {entretiempoIcons[3]}
           </ListItemIcon>
           <ListItemText primary={'Equipos'} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItem>
+        </ListItemButton>
       </List>
       {
         logged ?
           <>
             <Divider />
             <List>
-              <ListItem sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => {
+              <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => {
                 logOut()
                 setLogged(false)
               }}>
@@ -148,7 +148,7 @@ export default function HomeMobile() {
                   <LogoutIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Cerrar sesión'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItem>
+              </ListItemButton>
             </List>
           </>
           :
@@ -188,7 +188,12 @@ export default function HomeMobile() {
         {list()}
       </SwipeableDrawer>
       <Box sx={{ flexGrow: 1, p: 1 }}>
-        <Home logged={logged} />
+        {
+          actual.pathname === '/' ?
+            <Home logged={logged} />
+            :
+            null
+        }
       </Box>
     </>
   );
