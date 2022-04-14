@@ -28,7 +28,7 @@ export default function Match({ data }) {
           Cancha: <strong>{cancha}</strong>
         </Typography>
         <CardActions sx={{ float: 'right' }}>
-          <Button size="small" onClick={() => goto(`/partido/${_id}`)}>Ver más</Button>
+          <Button size="small" onClick={() => goto(`/partido/${_id}`)}>Ver detalles</Button>
         </CardActions>
       </CardContent>
     </Card>

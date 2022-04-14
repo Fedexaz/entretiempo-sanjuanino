@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getMatch } from '../../services/data.service';
 import { timeLeft, seHaJugado } from '../../utils/time.utils';
 
@@ -8,15 +8,17 @@ import HomeMobile from '../Home/HomeMobile';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 
 export default function MatchDetail() {
+  const goto = useNavigate();
   const { id } = useParams();
   const [match, setMatch] = useState({});
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => document.title='Detalles del partido - Entretiempo Sanjuanino');
 
   useEffect(() => {
     setLoaded(false);
@@ -34,6 +36,9 @@ export default function MatchDetail() {
   return (
     <>
     <HomeMobile />
+    <Box sx={{ marginLeft: '20px' }}>
+      <Button variant='contained' onClick={() => goto('/partidos')}>Volver a partidos</Button>
+    </Box>
     {
       match ?
       <Fade in={loaded} unmountOnExit>

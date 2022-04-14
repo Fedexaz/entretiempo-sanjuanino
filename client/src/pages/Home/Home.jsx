@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getAllMatches } from '../../services/data.service';
 import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
@@ -10,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Match from '../../components/Home/Match';
 
 export default function Home({ logged }) {
+  const goto = useNavigate();
   const [matches, setMatches] = useState([]);
 
   const loadData = async () => {
@@ -59,7 +61,7 @@ export default function Home({ logged }) {
           }
         </Box>
         <CardActions sx={{ float: 'right'}}>
-          <Button size="small">Ver todos los partidos</Button>
+          <Button size="small" onClick={() => goto('/partidos')}>Ver todos los partidos</Button>
         </CardActions>
       </Card>
       {
