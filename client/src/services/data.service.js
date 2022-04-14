@@ -8,6 +8,7 @@ export const getAllMatches = async () => {
         return data;
     } catch (error) {
         console.log(error.response.message);
+        return [];
     }
 };
 
@@ -19,5 +20,6 @@ export const getMatch = async (id) => {
         return data;
     } catch (error) {
         console.log(error.response.message);
+        return false;
     }
 };

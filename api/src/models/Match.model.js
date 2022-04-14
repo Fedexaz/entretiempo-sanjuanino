@@ -9,6 +9,10 @@ const matchSchema = new Schema({
         type: String,
         required: true
     },
+    info: {
+        type: String,
+        required: true
+    },
     provincia: {
         type: String,
         required: true
@@ -29,7 +33,7 @@ const matchSchema = new Schema({
     fechaJuego: {
         type: String,
         required: true,
-        default: 'A convenir'
+        default: new Date()
     },
     golesLocal: {
         type: Number,
