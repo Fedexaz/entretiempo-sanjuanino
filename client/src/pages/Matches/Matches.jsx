@@ -9,7 +9,9 @@ import List from '@mui/material/List';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -22,6 +24,14 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import fechaCorrecta from 'date-fns/locale/es';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 export default function Matches() {
   useEffect(() => document.title = 'Partidos - Entretiempo Sanjuanino');
@@ -61,6 +71,8 @@ export default function Matches() {
 
   const handleOrdenPorFecha = (e) => {
     setOrdenPorFecha(e.target.value);
+    const data = matches.sortByFecha()
+    setMatches(data);
   };
 
   const handleOrdenPorNombreLocal = (e) => {
@@ -125,7 +137,7 @@ export default function Matches() {
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Card sx={{ paddingLeft: '20px', paddingRight: '20px', paddingBottom: '10px', margin: '5px', width: '900px', border: '1px solid #AAD6FF', '@media screen and (max-width: 900px)': { width: '98vw' } }}>
+          <Box sx={{ margin: '5px', width: '900px', '@media screen and (max-width: 900px)': { width: '98vw' } }}>
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -343,9 +355,10 @@ export default function Matches() {
                     />
                   </LocalizationProvider>
                 </FormControl>
+                <Button sx={{ marginTop: '37px' }} size='large' variant='contained' onClick={() => setMatches(matchesBackup)}>Limpiar filtros</Button>
               </AccordionDetails>
             </Accordion>
-          </Card>
+          </Box>
           <Card sx={{ margin: '5px', width: '900px', border: '1px solid #AAD6FF', '@media screen and (max-width: 900px)': { width: '98vw' } }}>
             <Typography sx={{ fontSize: '20px', padding: '10px', paddingLeft: '20px' }}>Todos los partidos</Typography>
             <CardContent>
@@ -354,7 +367,7 @@ export default function Matches() {
                   matches.length ?
                     matches.map(m => <Match key={m._id} data={m} principal={true} />)
                     :
-                    <Typography>No hay partidos a mostrar</Typography>
+                    <Alert severity='info'>No hay nada que mostrar :/</Alert>
                 }
               </List>
             </CardContent>
@@ -366,10 +379,10 @@ export default function Matches() {
             <CardContent>
               <List dense>
                 {
-                  matches.length ?
-                    sortByFecha(showToday(matches)).map(m => <Match key={m._id} data={m} principal={false} />)
+                  sortByFecha(showToday(matchesBackup)).length ?
+                    sortByFecha(showToday(matchesBackup)).map(m => <Match key={m._id} data={m} principal={false} />)
                     :
-                    <Typography>No hay partidos a mostrar</Typography>
+                    <Alert severity='info'>Hoy no hay partidos</Alert>
                 }
               </List>
             </CardContent>
@@ -379,10 +392,10 @@ export default function Matches() {
             <CardContent>
               <List dense>
                 {
-                  matches.length ?
-                    matches.slice(0, 5).map(m => <Match key={m._id} principal={false} data={m} />)
+                  matchesBackup.length ?
+                    matchesBackup.slice(0, 5).map(m => <Match key={m._id} principal={false} data={m} />)
                     :
-                    <Typography>No hay partidos a mostrar</Typography>
+                    <Alert severity='info'>No hay nada que mostrar :/</Alert>
                 }
               </List>
             </CardContent>
