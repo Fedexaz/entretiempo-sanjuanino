@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getAllMatches } from '../../services/data.service';
-import { showToday, sortByFecha } from '../../utils/matches.utils';
+import { findByCancha, findByEvento, findByFecha, findByLocalName, findByState, findByVisitantelName, showToday, sortByCancha, sortByEvento, sortByFecha, sortByGolesLocal, sortByGolesVisitante, sortByLocalName, sortByState, sortByVisitanteName } from '../../utils/matches.utils';
 import HomeMobile from '../Home/HomeMobile';
 import Footer from '../../components/Footer/Footer';
 import Match from '../../components/Matches/Match';
+import AllMatches from '../../components/Matches/AllMatches';
 
 import List from '@mui/material/List';
 import FormControl from '@mui/material/FormControl';
@@ -25,19 +26,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import fechaCorrecta from 'date-fns/locale/es';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
 export default function Matches() {
   useEffect(() => document.title = 'Partidos - Entretiempo Sanjuanino');
 
   const [matches, setMatches] = useState([]);
   const [matchesBackup, setMatchesBackup] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const [ordenPorFecha, setOrdenPorFecha] = useState('');
   const [ordenPorNombreLocal, setOrdenPorNombreLocal] = useState('');
@@ -57,9 +51,8 @@ export default function Matches() {
 
   const loadData = async () => {
     setMatches(await getAllMatches());
+    setMatchesBackup(await getAllMatches())
   };
-
-  useEffect(() => setMatchesBackup(matches), [matches]);
 
   useEffect(() => {
     loadData();
@@ -71,60 +64,118 @@ export default function Matches() {
 
   const handleOrdenPorFecha = (e) => {
     setOrdenPorFecha(e.target.value);
-    const data = matches.sortByFecha()
+    const data = sortByFecha(matches, e.target.value);
     setMatches(data);
+    setOpen(!open);
   };
 
   const handleOrdenPorNombreLocal = (e) => {
     setOrdenPorNombreLocal(e.target.value);
+    const data = sortByLocalName(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleOrdenPorNombreVisitante = (e) => {
     setOrdenPorNombreVisitante(e.target.value);
+    const data = sortByVisitanteName(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleOrdenPorCancha = (e) => {
     setOrdenPorCancha(e.target.value);
+    const data = sortByCancha(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);  
   };
 
   const handleOrdenPorEstado = (e) => {
     setOrdenPorEstado(e.target.value);
+    const data = sortByState(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleOrdenPorGolesLocal = (e) => {
     setOrdenPorGolesLocal(e.target.value);
+    const data = sortByGolesLocal(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleOrdenPorGolesVisitante = (e) => {
     setOrdenPorGolesVisitante(e.target.value);
+    const data = sortByGolesVisitante(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleOrdenPorEvento = (e) => {
     setOrdenPorEvento(e.target.value);
+    const data = sortByEvento(matches, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleFiltrarPorNombreLocal = (e) => {
     setFiltrarPorNombreLocal(e.target.value);
+    const data = findByLocalName(matchesBackup, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleFiltrarPorNombreVisitante = (e) => {
     setFiltrarPorNombreVisitante(e.target.value);
+    const data = findByVisitantelName(matchesBackup, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleFiltrarPorCancha = (e) => {
     setFiltrarPorCancha(e.target.value);
+    const data = findByCancha(matchesBackup, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleFiltrarPorEstado = (e) => {
     setFiltrarPorEstado(e.target.value);
+    const data = findByState(matchesBackup, e.target.value);
+    setMatches(data);
+    setOpen(!open);
   };
 
   const handleFiltrarPorFecha = valor => {
     setFiltrarPorFecha(valor);
+    const data = findByFecha(matchesBackup, valor);
+    setMatches(data);
   };
 
   const handleFiltrarPorEvento = (e) => {
     setFiltrarPorEvento(e.target.value);
+    const data = findByEvento(matchesBackup, e.target.value);
+    setMatches(data);
+    setOpen(!open);
+  };
+
+  const handleReset = () => {
+    setMatches([...matchesBackup]);
+    setOpen(!open);
+    setOrdenPorFecha('');
+    setOrdenPorNombreLocal('');
+    setOrdenPorNombreVisitante('');
+    setOrdenPorCancha('');
+    setOrdenPorEstado('');
+    setOrdenPorGolesLocal('');
+    setOrdenPorGolesVisitante('');
+    setOrdenPorEvento('');
+    setFiltrarPorNombreLocal('');
+    setFiltrarPorNombreVisitante('');
+    setFiltrarPorCancha('');
+    setFiltrarPorEstado('');
+    setFiltrarPorFecha(new Date());
+    setFiltrarPorEvento('');
   };
 
   return (
@@ -138,7 +189,7 @@ export default function Matches() {
       <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box sx={{ margin: '5px', width: '900px', '@media screen and (max-width: 900px)': { width: '98vw' } }}>
-            <Accordion>
+            <Accordion expanded={open} onClick={() => setOpen(!open)}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -355,7 +406,7 @@ export default function Matches() {
                     />
                   </LocalizationProvider>
                 </FormControl>
-                <Button sx={{ marginTop: '37px' }} size='large' variant='contained' onClick={() => setMatches(matchesBackup)}>Limpiar filtros</Button>
+                <Button sx={{ marginTop: '37px' }} size='large' variant='contained' onClick={handleReset}>Limpiar filtros</Button>
               </AccordionDetails>
             </Accordion>
           </Box>
@@ -365,7 +416,7 @@ export default function Matches() {
               <List dense>
                 {
                   matches.length ?
-                    matches.map(m => <Match key={m._id} data={m} principal={true} />)
+                    <AllMatches matches={matches} />
                     :
                     <Alert severity='info'>No hay nada que mostrar :/</Alert>
                 }

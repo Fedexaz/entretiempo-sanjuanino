@@ -205,7 +205,7 @@ export const findByState = (data, state) => {
 };
 
 export const findByFecha = (data, date) => {
-  return data.filter(el => moment(date, "DD/MM/YYYY") === moment(data.fechaJuego, "DD/MM/YYYY"));
+  return data.filter(el => moment(el.fechaJuego, "DD/MM/YYYY").isSame(moment(date, "DD/MM/YYYY"), 'day'));
 };
 
 export const findByEvento = (data, name) => {

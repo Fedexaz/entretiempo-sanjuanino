@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllMatches } from '../../services/data.service';
+import { sortByFecha } from '../../utils/matches.utils';
 import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -48,7 +49,7 @@ export default function Home({ logged }) {
       </Card>
       <Card sx={{ minWidth: 275, margin: '10px' }}>
         <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-          Últimos 5 partidos
+          Últimos 4 partidos cargados
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {
