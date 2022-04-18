@@ -1,0 +1,21 @@
+.loader {
+  display: inline-block;
+  position: relative;
+  color: #4E5C87;
+  -webkit-animation: loader 3s linear infinite;
+  -moz-animation: loader 3s linear infinite;
+  animation: loader 3s linear infinite;
+}
+
+@-moz-keyframes loader { 
+  100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes loader { 
+  100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes loader { 
+  100% { 
+      -webkit-transform: rotate(360deg); 
+      transform:rotate(360deg); 
+  } 
+}

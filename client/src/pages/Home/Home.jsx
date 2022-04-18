@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllMatches } from '../../services/data.service';
-import { sortByFecha } from '../../utils/matches.utils';
 import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Match from '../../components/Home/Match';
+import LoaderMain from '../../components/Loaders/LoaderMain';
 
 export default function Home({ logged }) {
   const goto = useNavigate();
   const [matches, setMatches] = useState([]);
+  const [loadingMatches, setLoadingMatches] = useState(true);
+
+  const [loadingNews, setLoadingNews] = useState(true);
+  const [loadingPronosticados, setLoadingPronosticados] = useState(true);
+  const [loadingPremios, setLoadingPremios] = useState(true);
+  const [loadingPronosticadores, setLoadingPronosticadores] = useState(true);
 
   const loadData = async () => {
     setMatches(await getAllMatches());
+    setLoadingMatches(false);
   };
 
   useEffect(() => {
     loadData();
     return () => {
       setMatches([]);
+      setLoadingMatches(false);
     };
   }, []);
 
@@ -40,10 +47,19 @@ export default function Home({ logged }) {
         <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
           Últimas noticias
         </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-          Renderizar las últimas noticias
+        <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {
+            loadingNews ?
+              <Typography sx={{ textAlign: 'center' }}>
+                <LoaderMain sx={{ transform: 'scale(3)' }} />
+                <br />
+                Cargando
+              </Typography>
+              :
+              null
+          }
         </Box>
-        <CardActions sx={{ float: 'right'}}>
+        <CardActions sx={{ float: 'right' }}>
           <Button size="small">Ver todas las noticias</Button>
         </CardActions>
       </Card>
@@ -53,15 +69,22 @@ export default function Home({ logged }) {
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {
-            matches.length ?
-              matches.slice(0, 4).map((m) => m.jugado ? null : <Match key={m._id} data={m} />)
-              :
-              <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-                No hay partidos
+            loadingMatches ?
+              <Typography sx={{ textAlign: 'center' }}>
+                <LoaderMain sx={{ transform: 'scale(3)' }} />
+                <br />
+                Cargando
               </Typography>
+              :
+              matches.length ?
+                matches.slice(0, 4).map((m) => m.jugado ? null : <Match key={m._id} data={m} />)
+                :
+                <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
+                  No hay partidos
+                </Typography>
           }
         </Box>
-        <CardActions sx={{ float: 'right'}}>
+        <CardActions sx={{ float: 'right' }}>
           <Button size="small" onClick={() => goto('/partidos')}>Ver todos los partidos</Button>
         </CardActions>
       </Card>
@@ -72,30 +95,54 @@ export default function Home({ logged }) {
               <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
                 Partidos más pronosticados
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                Renderizar partidos con más pronósticos
+              <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '30px' }}>
+                {
+                  loadingPronosticados ?
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <LoaderMain sx={{ transform: 'scale(3)' }} />
+                      <br />
+                      Cargando
+                    </Typography>
+                    :
+                    null
+                }
               </Box>
-              <CardActions>
-                <Button size="small">Ver todos los partidos a pronosticar</Button>
-              </CardActions>
             </Card>
             <Card sx={{ minWidth: 275, margin: '10px' }}>
               <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
                 Premios más canjeados
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                Renderizar los premios más canjeados
+              <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+                {
+                  loadingPremios ?
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <LoaderMain sx={{ transform: 'scale(3)' }} />
+                      <br />
+                      Cargando
+                    </Typography>
+                    :
+                    null
+                }
               </Box>
-              <CardActions sx={{ float: 'right'}}>
-                <Button size="small">Ver todos los premios disponibles</Button>
+              <CardActions sx={{ float: 'right' }}>
+                <Button size="small">Ver todos los premios</Button>
               </CardActions>
             </Card>
             <Card sx={{ minWidth: 275, margin: '10px' }}>
               <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
                 Top 5 mejores pronosticadores
               </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                Renderizar los 5 mejores pronosticadores
+              <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '30px' }}>
+                {
+                  loadingPronosticadores ?
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <LoaderMain sx={{ transform: 'scale(3)' }} />
+                      <br />
+                      Cargando
+                    </Typography>
+                    :
+                    null
+                }
               </Box>
             </Card>
           </>

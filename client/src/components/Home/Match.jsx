@@ -12,7 +12,7 @@ export default function Match({ data }) {
   const { _id, teamLocal, teamVisitante, provincia, departamento, cancha, fechaJuego, evento } = data;
 
   return (
-    <Card sx={{ minWidth: 250, mx: 1 }}>
+    <Card sx={{ minWidth: 250, m: 1 }}>
       <CardContent>
         <Typography sx={{ fontSize: 16 }} gutterBottom>
           {fechaJuego}

@@ -7,11 +7,12 @@ dotenv.config();
 
 const userRegisterService = async (request) => {
     try {
-        const user = await User.findOne({ email: request.email });
+        const user = await User.findOne({ email: request.email.toLowerCase() });
         if (user) throw new Error('El usuario ya existe');
 
         const newUser = new User({
             ...request,
+            email: request.email.toLowerCase(),
             rol: 0
         });
         await newUser.save();
@@ -23,7 +24,7 @@ const userRegisterService = async (request) => {
 };
 
 const userLoginService = (user) => {
-    const data = { id: String(user._id), email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team  };
+    const data = { email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team  };
     const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '10d' });
     return token;
 };
@@ -40,7 +41,7 @@ const userPasswordService = async (user, password) => {
 
 const userGetDataService = async (email) => {
     try {
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: email.toLowerCase() });
         return user;
     } catch (error) {
         throw error

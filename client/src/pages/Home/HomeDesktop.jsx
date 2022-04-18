@@ -6,6 +6,7 @@ import Home from './Home';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -145,10 +146,10 @@ export default function HomeDesktop() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography onClick={() => goto('/')} variant="h6" noWrap component="div" sx={{ '&:hover': { cursor: '' }, flexGrow: 1 }}>
+          <Typography onClick={() => goto('/')} variant="h6" noWrap component="span" sx={{ '&:hover': { cursor: 'pointer' } }}>
             Entretiempo Sanjuanino
           </Typography>
-          <Typography>¡Consigue más puntos!</Typography>
+          <Button variant='contained' onClick={() => goto('/comprar')} color='info' size='large' sx={{ marginLeft: 'auto', '&:hover': { cursor: 'pointer' } }}>¡Consigue más puntos!</Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

@@ -26,6 +26,8 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BoyIcon from '@mui/icons-material/Boy';
+import Button from '@mui/material/Button';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 const userIcons = [<HomeIcon />, <AccountCircleIcon />, <ReceiptIcon />];
 
@@ -147,6 +149,17 @@ export default function HomeMobile() {
           <>
             <Divider />
             <List>
+              {
+                actual.pathname !== '/comprar' ?
+                  <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('comprar')}>
+                    <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
+                      <ShoppingBagIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={'Consigue más puntos'} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                  :
+                  null
+              }
               <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => {
                 logOut()
                 setLogged(false)

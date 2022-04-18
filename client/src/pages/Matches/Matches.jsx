@@ -5,7 +5,7 @@ import HomeMobile from '../Home/HomeMobile';
 import Footer from '../../components/Footer/Footer';
 import Match from '../../components/Matches/Match';
 import AllMatches from '../../components/Matches/AllMatches';
-
+import LoaderMain from '../../components/Loaders/LoaderMain';
 import List from '@mui/material/List';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -29,6 +29,7 @@ import fechaCorrecta from 'date-fns/locale/es';
 export default function Matches() {
   useEffect(() => document.title = 'Partidos - Entretiempo Sanjuanino');
 
+  const [loadingMatches, setLoadingMatches] = useState(true);
   const [matches, setMatches] = useState([]);
   const [matchesBackup, setMatchesBackup] = useState([]);
   const [open, setOpen] = useState(false);
@@ -51,7 +52,8 @@ export default function Matches() {
 
   const loadData = async () => {
     setMatches(await getAllMatches());
-    setMatchesBackup(await getAllMatches())
+    setMatchesBackup(await getAllMatches());
+    setLoadingMatches(false);
   };
 
   useEffect(() => {
@@ -59,6 +61,7 @@ export default function Matches() {
     return () => {
       setMatches([]);
       setMatchesBackup([]);
+      setLoadingMatches(false);
     };
   }, []);
 
@@ -87,7 +90,7 @@ export default function Matches() {
     setOrdenPorCancha(e.target.value);
     const data = sortByCancha(matches, e.target.value);
     setMatches(data);
-    setOpen(!open);  
+    setOpen(!open);
   };
 
   const handleOrdenPorEstado = (e) => {
@@ -189,11 +192,12 @@ export default function Matches() {
       <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box sx={{ margin: '5px', width: '900px', '@media screen and (max-width: 900px)': { width: '98vw' } }}>
-            <Accordion expanded={open} onClick={() => setOpen(!open)}>
+            <Accordion expanded={open}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                onClick={() => setOpen(!open)}
               >
                 <Typography variant='h6' sx={{ padding: '7px' }}>
                   Buscar o filtrar partidos
@@ -415,10 +419,17 @@ export default function Matches() {
             <CardContent>
               <List dense>
                 {
-                  matches.length ?
-                    <AllMatches matches={matches} />
+                  loadingMatches ?
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <LoaderMain />
+                      <br />
+                      Cargando partidos...
+                    </Typography>
                     :
-                    <Alert severity='info'>No hay nada que mostrar :/</Alert>
+                    matches.length ?
+                      <AllMatches matches={matches} />
+                      :
+                      <Alert severity='info'>No hay nada que mostrar :/</Alert>
                 }
               </List>
             </CardContent>
@@ -430,10 +441,17 @@ export default function Matches() {
             <CardContent>
               <List dense>
                 {
-                  sortByFecha(showToday(matchesBackup)).length ?
-                    sortByFecha(showToday(matchesBackup)).map(m => <Match key={m._id} data={m} principal={false} />)
+                  loadingMatches ?
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <LoaderMain />
+                      <br />
+                      Cargando partidos...
+                    </Typography>
                     :
-                    <Alert severity='info'>Hoy no hay partidos</Alert>
+                    sortByFecha(showToday(matchesBackup)).length ?
+                      sortByFecha(showToday(matchesBackup)).map(m => <Match key={m._id} data={m} principal={false} />)
+                      :
+                      <Alert severity='info'>Hoy no hay partidos</Alert>
                 }
               </List>
             </CardContent>
@@ -443,10 +461,17 @@ export default function Matches() {
             <CardContent>
               <List dense>
                 {
-                  matchesBackup.length ?
-                    matchesBackup.slice(0, 5).map(m => <Match key={m._id} principal={false} data={m} />)
+                  loadingMatches ?
+                    <Typography sx={{ textAlign: 'center' }}>
+                      <LoaderMain />
+                      <br />
+                      Cargando partidos...
+                    </Typography>
                     :
-                    <Alert severity='info'>No hay nada que mostrar :/</Alert>
+                    matchesBackup.length ?
+                      matchesBackup.slice(0, 5).map(m => <Match key={m._id} principal={false} data={m} />)
+                      :
+                      <Alert severity='info'>No hay nada que mostrar :/</Alert>
                 }
               </List>
             </CardContent>
