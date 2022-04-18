@@ -145,7 +145,7 @@ export default function HomeDesktop() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography onClick={() => goto('/')} variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+          <Typography onClick={() => goto('/')} variant="h6" noWrap component="div" sx={{ '&:hover': { cursor: '' }, flexGrow: 1 }}>
             Entretiempo Sanjuanino
           </Typography>
           <Typography>¡Consigue más puntos!</Typography>
