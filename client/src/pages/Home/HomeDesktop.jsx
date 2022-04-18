@@ -28,10 +28,11 @@ import SportsIcon from '@mui/icons-material/Sports';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import BoyIcon from '@mui/icons-material/Boy';
 
 const userIcons = [<HomeIcon />, <AccountCircleIcon />, <ReceiptIcon />];
 
-const entretiempoIcons = [<NewspaperIcon />, <SportsSoccerIcon />, <ListIcon />, <SportsIcon />];
+const entretiempoIcons = [<NewspaperIcon />, <SportsSoccerIcon />, <ListIcon />, <SportsIcon />, <BoyIcon />];
 
 const drawerWidth = 240;
 
@@ -132,6 +133,7 @@ export default function HomeDesktop() {
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
+            title='Menú'
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -143,9 +145,10 @@ export default function HomeDesktop() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography onClick={() => goto('/')} variant="h6" noWrap component="div" sx={{ '&:hover': { cursor: 'pointer' } }}>
+          <Typography onClick={() => goto('/')} variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Entretiempo Sanjuanino
           </Typography>
+          <Typography>¡Consigue más puntos!</Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -157,7 +160,7 @@ export default function HomeDesktop() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('')}>
+          <ListItemButton title='Inicio' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('')}>
             <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {userIcons[0]}
             </ListItemIcon>
@@ -166,13 +169,13 @@ export default function HomeDesktop() {
           {
             logged ?
               <>
-                <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('cuenta')}>
+                <ListItemButton title={`Perfil de ${userName}`} sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('cuenta')}>
                   <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                     {userIcons[1]}
                   </ListItemIcon>
                   <ListItemText primary={`Perfil (${userName})`} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
-                <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('pronosticos')}>
+                <ListItemButton title='Mis pronósticos' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('pronosticos')}>
                   <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                     {userIcons[2]}
                   </ListItemIcon>
@@ -181,13 +184,13 @@ export default function HomeDesktop() {
               </>
               :
               <>
-                <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('registro')}>
+                <ListItemButton title='Registrarme' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('registro')}>
                   <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                     <PersonAddAltIcon />
                   </ListItemIcon>
                   <ListItemText primary={'Registrarme'} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
-                <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('login')}>
+                <ListItemButton title='Iniciar sesión' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('login')}>
                   <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
                     <LoginIcon />
                   </ListItemIcon>
@@ -198,29 +201,35 @@ export default function HomeDesktop() {
         </List>
         <Divider />
         <List>
-          <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('noticias')}>
+          <ListItemButton title='Noticias' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('noticias')}>
             <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {entretiempoIcons[0]}
             </ListItemIcon>
             <ListItemText primary={'Noticias'} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
-          <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('partidos')}>
+          <ListItemButton title='Partidos' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('partidos')}>
             <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {entretiempoIcons[1]}
             </ListItemIcon>
             <ListItemText primary={'Partidos'} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
-          <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('posiciones')}>
+          <ListItemButton title='Tablas' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('posiciones')}>
             <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {entretiempoIcons[2]}
             </ListItemIcon>
             <ListItemText primary={'Tabla de posiciones'} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
-          <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('equipos')}>
+          <ListItemButton title='Equipos' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('equipos')}>
             <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {entretiempoIcons[3]}
             </ListItemIcon>
             <ListItemText primary={'Equipos'} sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+          <ListItemButton title='Jugadores' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('jugadores')}>
+            <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
+              {entretiempoIcons[4]}
+            </ListItemIcon>
+            <ListItemText primary={'Jugadores'} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </List>
         {
@@ -228,7 +237,7 @@ export default function HomeDesktop() {
             <>
               <Divider />
               <List>
-                <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => {
+                <ListItemButton title='Cerrar sesión' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => {
                   logOut()
                   setLogged(false)
                 }}>

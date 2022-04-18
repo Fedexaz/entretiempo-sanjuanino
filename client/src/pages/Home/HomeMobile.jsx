@@ -25,10 +25,11 @@ import SportsIcon from '@mui/icons-material/Sports';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import BoyIcon from '@mui/icons-material/Boy';
 
 const userIcons = [<HomeIcon />, <AccountCircleIcon />, <ReceiptIcon />];
 
-const entretiempoIcons = [<NewspaperIcon />, <SportsSoccerIcon />, <ListIcon />, <SportsIcon />];
+const entretiempoIcons = [<NewspaperIcon />, <SportsSoccerIcon />, <ListIcon />, <SportsIcon />, <BoyIcon />];
 
 export default function HomeMobile() {
   const actual = useLocation();
@@ -133,6 +134,12 @@ export default function HomeMobile() {
             {entretiempoIcons[3]}
           </ListItemIcon>
           <ListItemText primary={'Equipos'} sx={{ opacity: open ? 1 : 0 }} />
+        </ListItemButton>
+        <ListItemButton sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('jugadores')}>
+          <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
+            {entretiempoIcons[4]}
+          </ListItemIcon>
+          <ListItemText primary={'Jugadores'} sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>
       </List>
       {
