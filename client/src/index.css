@@ -1,4 +1,11 @@
-.center-completo{
+body {
+    background-color: #6AFFEB;
+    background-image: url("./resources/images/background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.center-completo {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -6,40 +13,40 @@
     padding-top: 20px;
 }
 
-.flex-row{
+.flex-row {
     flex-direction: row;
 }
 
-.flex-row-centrado{
+.flex-row-centrado {
     display: flex;
     justify-content: center;
 }
 
-.flex-row-left{
+.flex-row-left {
     display: flex;
-    justify-content: flex-start;    
+    justify-content: flex-start;
 }
 
-.flex-row-right{
+.flex-row-right {
     display: flex;
-    justify-content: flex-end;    
+    justify-content: flex-end;
 }
 
-.flex-col{
+.flex-col {
     flex-direction: column;
 }
 
-.flex-col-centrado{
+.flex-col-centrado {
     display: flex;
     align-items: center;
 }
 
-.flex-col-left{
+.flex-col-left {
     display: flex;
-    align-items: flex-start;    
+    align-items: flex-start;
 }
 
-.flex-col-right{
+.flex-col-right {
     display: flex;
-    align-items: flex-end;    
+    align-items: flex-end;
 }

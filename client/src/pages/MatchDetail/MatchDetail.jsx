@@ -5,6 +5,7 @@ import { timeLeft, seHaJugado } from '../../utils/time.utils';
 import '../../resources/css/loader.css';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import HomeMobile from '../Home/HomeMobile';
+import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
@@ -44,8 +45,8 @@ export default function MatchDetail() {
           loaded ?
           <Fade in={loaded} unmountOnExit>
             <Box sx={{ padding: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Typography variant='h3'>Detalles del partido</Typography>
               <Card sx={{ padding: '14px', paddingLeft: '65px', paddingRight: '65px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography variant='h3' sx={{ marginBottom: '20px'}}>Detalles del partido</Typography>
                 <Typography variant='h5'>
                   <img src={`https://firebasestorage.googleapis.com/v0/b/entretiempo-img.appspot.com/o/${String(match.teamLocal).replaceAll(' ', '-').toLowerCase()}.png?alt=media&token=400a2246-623d-4047-8295-ba236ae1cc3b`} width='60' alt={match.teamLocal} />{match.teamLocal} vs {match.teamVisitante}<img src={`https://firebasestorage.googleapis.com/v0/b/entretiempo-img.appspot.com/o/${String(match.teamVisitante).replaceAll(' ', '-').toLowerCase()}.png?alt=media&token=400a2246-623d-4047-8295-ba236ae1cc3b`} width='60' alt={match.teamVisitante} />
                 </Typography>
@@ -99,7 +100,7 @@ export default function MatchDetail() {
             </Box>
           </Fade>
           :
-          <Typography variant='h4' sx={{ textAlign: 'center'}}>
+          <Typography variant='h4' sx={{ textAlign: 'center', background: 'white', padding: '20px', borderRadius: '5px', width: 'auto' }}>
             <SportsSoccerIcon sx={{ fontSize: '70px' }} className='loader' />
             <br />
             Cargando partido...
@@ -109,6 +110,7 @@ export default function MatchDetail() {
             <Typography variant='h4'>No se ha encontrado el partido :(</Typography>
           </Box>
       }
+      <Footer />
     </>
   )
 }

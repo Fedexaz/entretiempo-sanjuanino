@@ -16,7 +16,7 @@ export default function BuyPoints() {
     <>
       <HomeMobile />
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant='h4' sx={{ my: 3 }}>Comprar puntos</Typography>
+        <Typography variant='h4' sx={{ my: 3, background: 'white', padding: '10px', borderRadius: '5px' }}>Comprar puntos</Typography>
         <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Card sx={{ minWidth: 275, marginTop: '10px', marginRight: '10px', transition: '0.3s', '&:hover': { background: '#CFF6FF', transform: 'scale(1.05)' } }}>
             <CardContent>

@@ -8,6 +8,7 @@ const matchRoutes = require('./match.route');
 const playerRoutes = require('./player.route');
 const teamRoutes = require('./team.route');
 const tokenAPIRoutes = require('./tokenAPI.route');
+const utilsRoutes = require('./utils.route');
 
 const rutas = Router();
 
@@ -22,5 +23,8 @@ rutas.use('/api/match', tokenAPIVerify, matchRoutes);
 
 //Ruta para interactuar con la API
 //rutas.use('/tokenAPI', tokenAPIRoutes);
+
+//Ruta con utilidades
+rutas.use('/utils', tokenAPIVerify, utilsRoutes);
 
 module.exports = rutas;

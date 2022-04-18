@@ -220,7 +220,7 @@ export default function HomeDesktop() {
             </ListItemIcon>
             <ListItemText primary={'Tabla de posiciones'} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
-          <ListItemButton title='Equipos' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('equipos')}>
+          {/* <ListItemButton title='Equipos' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('equipos')}>
             <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {entretiempoIcons[3]}
             </ListItemIcon>
@@ -231,7 +231,7 @@ export default function HomeDesktop() {
               {entretiempoIcons[4]}
             </ListItemIcon>
             <ListItemText primary={'Jugadores'} sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
+          </ListItemButton> */}
         </List>
         {
           logged ?

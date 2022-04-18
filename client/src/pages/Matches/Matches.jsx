@@ -185,8 +185,8 @@ export default function Matches() {
     <>
       <HomeMobile />
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Typography variant='h5'>
-          Todos los partidos
+        <Typography variant='h4' sx={{ background: 'white', padding: '10px', borderRadius: '5px'}}>
+          Partidos
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
@@ -436,9 +436,9 @@ export default function Matches() {
           </Card>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Card sx={{ margin: '5px', border: '1px solid #AAD6FF', '@media screen and (max-width: 900px)': { width: '98vw' }, '@media screen and (min-width: 900px)': { maxWidth: '400px' } }}>
-            <Typography sx={{ fontSize: '20px', padding: '10px', paddingLeft: '20px' }}>Partidos de Hoy ({new Date().toLocaleDateString()})</Typography>
-            <CardContent>
+          <Box sx={{ margin: '5px', background: 'transparent', '@media screen and (max-width: 900px)': { width: '98vw' }, '@media screen and (min-width: 900px)': { maxWidth: '400px' } }}>
+            <Typography sx={{ fontSize: '20px', padding: '10px', paddingLeft: '20px', background: 'white', borderRadius: '5px' }}>Partidos de Hoy ({new Date().toLocaleDateString()})</Typography>
+            <CardContent sx={{ background: 'rgb(255, 255, 255, 0.7)', marginTop: '5px', borderRadius: '5px' }}>
               <List dense>
                 {
                   loadingMatches ?
@@ -455,10 +455,10 @@ export default function Matches() {
                 }
               </List>
             </CardContent>
-          </Card>
-          <Card sx={{ margin: '5px', border: '1px solid #AAD6FF', '@media screen and (max-width: 900px)': { width: '98vw' }, '@media screen and (min-width: 900px)': { maxWidth: '400px' } }}>
-            <Typography sx={{ fontSize: '20px', padding: '10px', paddingLeft: '20px' }}>Últimos partidos agregados</Typography>
-            <CardContent>
+          </Box>
+          <Box sx={{ margin: '5px', background: 'transparent', '@media screen and (max-width: 900px)': { width: '98vw' }, '@media screen and (min-width: 900px)': { maxWidth: '400px' } }}>
+            <Typography sx={{ fontSize: '20px', padding: '10px', paddingLeft: '20px', background: 'white', borderRadius: '5px' }}>Últimos partidos agregados</Typography>
+            <CardContent sx={{ background: 'rgb(255, 255, 255, 0.7)', marginTop: '5px', borderRadius: '5px' }}>
               <List dense>
                 {
                   loadingMatches ?
@@ -475,7 +475,7 @@ export default function Matches() {
                 }
               </List>
             </CardContent>
-          </Card>
+          </Box>
         </Box>
       </Box>
       <Footer />

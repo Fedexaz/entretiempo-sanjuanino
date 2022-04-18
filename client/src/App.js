@@ -9,16 +9,17 @@ import Login from './pages/Login/Login';
 import MatchDetail from './pages/MatchDetail/MatchDetail';
 import Matches from './pages/Matches/Matches';
 import Cuenta from './pages/Cuenta/Cuenta';
-import Equipos from './pages/Equipos/Equipos';
+/* import Equipos from './pages/Equipos/Equipos';
 import TeamDetail from './pages/TeamDetail/TeamDetail';
+import Jugadores from './pages/Jugadores/Jugadores';
+import JugadorDetail from './pages/JugadorDetail/JugadorDetail'; */
 import Pronosticos from './pages/Pronosticos/Pronosticos';
 import MisPronosticos from './pages/MisPronosticos/MisPronosticos';
 import Noticias from './pages/Noticias/Noticias';
 import NoticiaDetail from './pages/NoticiaDetail/NoticiaDetail';
 import Posiciones from './pages/Posiciones/Posiciones';
 import TablaDetail from './pages/TablaDetail/TablaDetail';
-import Jugadores from './pages/Jugadores/Jugadores';
-import JugadorDetail from './pages/JugadorDetail/JugadorDetail';
+import NotFound from './pages/NotFound/NotFound';
 
 import Tienda from './pages/Tienda/Tienda';
 import BuyPoints from './pages/BuyPoints/BuyPoints';
@@ -51,15 +52,17 @@ function App() {
         <Route exact path='/posiciones' element={<Posiciones />} />
         <Route exact path='/tabla/:id' element={<TablaDetail />} />
 
-        <Route exact path='/equipos' element={<Equipos />} />
+{/*         <Route exact path='/equipos' element={<Equipos />} />
         <Route exact path='/equipo/:id' element={<TeamDetail />} />
 
         <Route exact path='/jugadores' element={<Jugadores />} />
-        <Route exact path='/jugador/:id' element={<JugadorDetail />} />
+        <Route exact path='/jugador/:id' element={<JugadorDetail />} /> */}
 
         <Route exact path='/tienda' element={<Tienda />} />
 
         <Route exact path='/comprar' element={<BuyPoints />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
