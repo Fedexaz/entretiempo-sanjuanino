@@ -11,12 +11,12 @@ const {
 
 const newCommentRoutes = Router();
 
-newCommentRoutes.get('/comment/:newId', getNewCommentsController);
-newCommentRoutes.post('/comment', passport.authenticate('jwt', { session: false }), addNewCommentController);
-newCommentRoutes.put('/comment', passport.authenticate('jwt', { session: false }), editNewCommentController);
-newCommentRoutes.delete('/comment', passport.authenticate('jwt', { session: false }), deleteNewCommentController);
+newCommentRoutes.get('/:newId', getNewCommentsController);
+newCommentRoutes.post('/', passport.authenticate('jwt', { session: false }), addNewCommentController);
+newCommentRoutes.put('/', passport.authenticate('jwt', { session: false }), editNewCommentController);
+newCommentRoutes.delete('/', passport.authenticate('jwt', { session: false }), deleteNewCommentController);
 
-newCommentRoutes.put('/admin/comment', passport.authenticate('jwt', { session: false }), modVerify, editNewCommentController);
-newCommentRoutes.delete('/admin/comment', passport.authenticate('jwt', { session: false }), modVerify, deleteNewCommentController);
+newCommentRoutes.put('/admin', passport.authenticate('jwt', { session: false }), modVerify, editNewCommentController);
+newCommentRoutes.delete('/admin', passport.authenticate('jwt', { session: false }), modVerify, deleteNewCommentController);
 
 module.exports = newCommentRoutes;
