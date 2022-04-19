@@ -6,9 +6,7 @@ const {
     getNewCommentsController,
     addNewCommentController,
     editNewCommentController,
-    deleteNewCommentController,
-    adminEditNewCommentController,
-    adminDeleteNewCommentController,
+    deleteNewCommentController
  } = require('../controllers/newComment.controller');
 
 const newCommentRoutes = Router();
@@ -18,7 +16,7 @@ newCommentRoutes.post('/comment', passport.authenticate('jwt', { session: false 
 newCommentRoutes.put('/comment', passport.authenticate('jwt', { session: false }), editNewCommentController);
 newCommentRoutes.delete('/comment', passport.authenticate('jwt', { session: false }), deleteNewCommentController);
 
-newCommentRoutes.put('/admin/comment', passport.authenticate('jwt', { session: false }), modVerify, adminEditNewCommentController);
-newCommentRoutes.delete('/admin/comment', passport.authenticate('jwt', { session: false }), modVerify, adminDeleteNewCommentController);
+newCommentRoutes.put('/admin/comment', passport.authenticate('jwt', { session: false }), modVerify, editNewCommentController);
+newCommentRoutes.delete('/admin/comment', passport.authenticate('jwt', { session: false }), modVerify, deleteNewCommentController);
 
 module.exports = newCommentRoutes;

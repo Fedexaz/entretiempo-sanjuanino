@@ -13,7 +13,7 @@ const getNewsService = async () => {
 
 const getNewService = async (_id) => {
     try {
-        const respuesta = await New.findById(_id);
+        const respuesta = await New.findOne({ _id });
         return respuesta ? respuesta : false;
     } catch (error) {
         console.log(error);
@@ -23,7 +23,10 @@ const getNewService = async (_id) => {
 
 const addNewService = async (data) => {
     try {
-        const noticia = new New(data);
+        const noticia = new New({
+            ...data,
+            createdAt: new Date()
+        });
         await noticia.save();
         return true;
     } catch (error) {

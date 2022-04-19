@@ -6,7 +6,7 @@ const userRoutes = require('./user.route');
 const matchRoutes = require('./match.route');
 const utilsRoutes = require('./utils.route');
 const newRoutes = require('./new.route')
-const newCommentRoutes = require('./newComments.route')
+const newCommentRoutes = require('./newComment.route');
 
 //const tokenAPIRoutes = require('./tokenAPI.route');
 

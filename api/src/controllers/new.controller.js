@@ -8,7 +8,7 @@ const {
 
 const getNewsController = async (request, response) => {
     try {
-        const respuesta = getNewsService();
+        const respuesta = await getNewsService();
         if(respuesta) {
             return response.status(200).json(respuesta);
         }
@@ -21,14 +21,14 @@ const getNewsController = async (request, response) => {
 };
 
 const getNewController = async (request, response) => {
-    const { _id } = request.body;
+    const { _id } = request.query;
 
     if(!_id) {
         return response.status(400).json({ message: 'ID de la noticia no especificado' });
     }
 
     try {
-        const respuesta = getNewService(_id);
+        const respuesta = await getNewService(_id);
         if(respuesta) {
             return response.status(200).json(respuesta);
         }
@@ -43,12 +43,12 @@ const getNewController = async (request, response) => {
 const addNewController = async (request, response) => {
     const { titulo, descripcion, hechaPor, createdAt } = request.body;
 
-    if(!titulo || !descripcion || !hechaPor || createdAt) {
+    if(!titulo || !descripcion || !hechaPor || !createdAt) {
         return response.status(400).json({ message: 'Faltan campos para agregar la noticia' });
     }
 
     try {
-        const respuesta = addNewService(_id, request.body);
+        const respuesta = await addNewService(request.body);
         if(respuesta) {
             return response.status(201).json({ message: 'Noticia agregada correctamente!' });
         }
@@ -68,7 +68,7 @@ const editNewController = async (request, response) => {
     }
 
     try {
-        const respuesta = editNewService(_id, request.body);
+        const respuesta = await editNewService(_id, request.body);
         if(respuesta) {
             return response.status(200).json({ message: 'Noticia editada correctamente' });
         }

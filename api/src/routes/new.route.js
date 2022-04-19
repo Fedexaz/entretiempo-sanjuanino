@@ -13,9 +13,9 @@ const {
 const newRoutes = Router();
 
 newRoutes.get('/news', getNewsController);
-newRoutes.get('/new/:id', getNewController);
-newRoutes.post('/new', passport.authenticate('jwt', { session: false }), modVerify, addNewController);
-newRoutes.put('/new', passport.authenticate('jwt', { session: false }), modVerify, editNewController);
-newRoutes.delete('/new', passport.authenticate('jwt', { session: false }), modVerify, deleteNewController);
+newRoutes.get('/new', getNewController);
+newRoutes.post('/new', /* passport.authenticate('jwt', { session: false }), modVerify, */ addNewController);
+newRoutes.put('/new', /* passport.authenticate('jwt', { session: false }), modVerify, */ editNewController);
+newRoutes.delete('/new', /* passport.authenticate('jwt', { session: false }), modVerify, */ deleteNewController);
 
 module.exports = newRoutes;

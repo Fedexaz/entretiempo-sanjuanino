@@ -3,7 +3,7 @@ const User = require('../models/User.model');
 const modVerify = async (request, response, next) => {
     try {
         const user = await User.findOne({ email: request.body.id });
-        if (user?.rol === 3 || user?.rol === 2) {
+        if (user?._id == request?.user?._id) {
             next();
         }
         else {

@@ -14,7 +14,7 @@ const newSchema = new Schema({
         required: true
     },
     likes: Array,
-    createdAt: Date
+    createdAt: String
 });
 
 module.exports = model('New', newSchema);
