@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setToken } from '../../redux/actions/';
 import HomeMobile from '../Home/HomeMobile';
 import decoder from 'jwt-decode';
-import axios from 'axios';
+import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
 import * as yup from "yup";
 import { useFormik } from "formik";
 import Container from '@mui/material/Container';
@@ -25,7 +26,8 @@ const validationSchema = yup.object({
 });
 
 export default function Login() {
-
+  const axios = useAxiosPrivate();
+  
   useEffect(() => document.title = 'Iniciar sesión - Entretiempo Sanjuanino', []);
 
   const goto = useNavigate();
@@ -38,11 +40,12 @@ export default function Login() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await axios.post("/user/login", values);
-
-        localStorage.setItem("token", JSON.stringify(response.data.data));
-        localStorage.setItem("loggedIn", true);
-        localStorage.setItem("data", JSON.stringify(decoder(response.data.data)));
+        const datos = await axios.post('/user/login', values)
+        var decoded = jwt_decode(datos.data);
+        const storage = window.localStorage;
+        dispatch(setToken(datos.data));
+        storage.setItem('data', JSON.stringify(decoded));
+        storage.setItem('loggedIn', 'true');
         goto("/");
       } catch (e) {
         console.log(e.response.data.message);

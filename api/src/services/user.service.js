@@ -24,7 +24,7 @@ const userRegisterService = async (request) => {
 };
 
 const userLoginService = (user) => {
-    const data = { email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team  };
+    const data = { id: user._id, email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team  };
     const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '10d' });
     return token;
 };

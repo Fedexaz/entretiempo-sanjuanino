@@ -2,6 +2,7 @@ const { Router } = require('express');
 
 const tokenAPIVerify = require('../middlewares/apiToken');
 
+const tokenRoutes = require('./token.route');
 const userRoutes = require('./user.route');
 const matchRoutes = require('./match.route');
 const utilsRoutes = require('./utils.route');
@@ -13,6 +14,7 @@ const newCommentRoutes = require('./newComment.route');
 const rutas = Router();
 
 //Rutas entretiempo
+rutas.use('/token', tokenRoutes);
 rutas.use('/user', userRoutes);
 
 //Rutas de noticias de entretiempo
