@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import HomeMobile from '../Home/HomeMobile';
 import decoder from 'jwt-decode';
 import axios from 'axios';
 import * as yup from "yup";
@@ -7,8 +8,6 @@ import { useFormik } from "formik";
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Toolbar from '@mui/material/Toolbar';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Footer from '../../components/Footer/Footer';
@@ -26,7 +25,7 @@ const validationSchema = yup.object({
 });
 
 export default function Login() {
-  
+
   useEffect(() => document.title = 'Iniciar sesión - Entretiempo Sanjuanino', []);
 
   const goto = useNavigate();
@@ -41,8 +40,8 @@ export default function Login() {
       try {
         const response = await axios.post("/user/login", values);
 
-        localStorage.setItem("token", response.data.data);        
-        localStorage.setItem("loggedIn", true);        
+        localStorage.setItem("token", JSON.stringify(response.data.data));
+        localStorage.setItem("loggedIn", true);
         localStorage.setItem("data", JSON.stringify(decoder(response.data.data)));
         goto("/");
       } catch (e) {
@@ -53,14 +52,8 @@ export default function Login() {
 
   return (
     <div>
-       <AppBar position="fixed">
-        <Toolbar>
-          <Typography onClick={() => goto('/')} variant="h6" noWrap component="a" sx={{ '&:hover': { cursor: 'pointer' }}}>
-            Entretiempo Sanjuanino
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Container size='xl' sx={{ marginTop: '70px', marginBottom: '60px'}}>
+      <HomeMobile />
+      <Container size='xl' sx={{ marginTop: '30px', marginBottom: '60px', background: 'white', borderRadius: '5px', padding: '30px', paddingBottom: '60px' }}>
         <Box className='center-completo'>
           <Box sx={{ margin: '30px' }}>
             <Typography variant='h5'>Inicia sesión en</Typography>
@@ -103,7 +96,7 @@ export default function Login() {
                   formik.errors.password
                 }
               />
-              <Button variant='contained' type='submit' sx={{ width: '100%'}}>
+              <Button variant='contained' type='submit' sx={{ width: '100%' }}>
                 Iniciar sesión
               </Button>
             </form>

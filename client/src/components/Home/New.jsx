@@ -1,0 +1,46 @@
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+
+export default function New({ data }) {
+    const goto = useNavigate();
+
+    const { _id, titulo, descripcion, hechaPor, likes, createdAt } = data;
+
+    return (
+        <Card sx={{ maxWidth: 350, m: 1, border: 'solid 1px #B7C8FF' }}>
+            <CardMedia
+                component="img"
+                height="140"
+                image="https://upload.wikimedia.org/wikipedia/commons/1/18/React_Native_Logo.png"
+                alt={hechaPor}
+            />
+            <CardContent>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography variant="body2" color="text.secondary">
+                        {createdAt}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" title={`${likes.length} reacciones`}>
+                        {likes.length} <ThumbUpIcon sx={{ fontSize: '14px' }} />
+                    </Typography>
+                </Box>
+                <Typography gutterBottom variant="h6" component="div">
+                    {titulo}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {descripcion.slice(0, 70)}...
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button size="small" onClick={() => goto(`/noticia/${_id}`)}>Ver noticia</Button>
+            </CardActions>
+        </Card>
+    );
+}

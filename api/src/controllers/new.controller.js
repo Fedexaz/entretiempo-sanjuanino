@@ -4,6 +4,8 @@ const {
     addNewService,
     editNewService,
     deleteNewService,
+    addLikeNewService,
+    removeLikeNewService
 } = require('../services/new.service');
 
 const getNewsController = async (request, response) => {
@@ -33,7 +35,7 @@ const getNewController = async (request, response) => {
             return response.status(200).json(respuesta);
         }
         else {
-            return response.status(404).json({ message: 'No hay noticias en la Base de Datos' });
+            return response.status(404).json({ message: 'No existe la noticia en la Base de Datos' });
         }
     } catch (error) {
         return response.status(500).json({ message: 'Error al obtener las noticias.' });
@@ -61,7 +63,7 @@ const addNewController = async (request, response) => {
 };
 
 const editNewController = async (request, response) => {
-    const { _id, titulo, descripcion } = request.body;
+    const { _id, titulo, descripcion, img } = request.body;
 
     if(!_id || !titulo || !descripcion) {
         return response.status(400).json({ message: 'Faltan campos para editar la noticia' });
@@ -100,10 +102,48 @@ const deleteNewController = async (request, response) => {
     }
 };
 
+const addLikeNewController = async (request, response) => {
+    if(!request.body._id || !request.body.idNoticia) {
+        return response.status(403).json({ message: 'Ups, algo ha salido mal' });
+    }
+    
+    try {
+        const respuesta = addLikeNewService(request.body._id, request.body.idNoticia);
+        if(respuesta) {
+            return response.status(200).json({ message: 'Like agregado correctamente! '});
+        } 
+        else {
+            return response.status(400).json({ message: 'Error al darle like a la noticia' });
+        }
+    } catch (error) {
+        return response.status(500).json({ message: 'Error interno del servidor '});
+    }
+};
+
+const removeLikeNewController = async (request, response) => {
+    if(!request.body._id || !request.body.idNoticia) {
+        return response.status(403).json({ message: 'Ups, algo ha salido mal' });
+    }
+
+    try {
+        const respuesta = removeLikeNewService(request.body._id, request.body.idNoticia);
+        if(respuesta) {
+            return response.status(200).json({ message: 'Like eliminado correctamente! '});
+        } 
+        else {
+            return response.status(400).json({ message: 'Error al eliminar el like de la noticia' });
+        }
+    } catch (error) {
+        return response.status(500).json({ message: 'Error interno del servidor '});
+    }
+};
+
 module.exports = {
     getNewsController,
     getNewController,
     addNewController,
     editNewController,
     deleteNewController,
+    addLikeNewController,
+    removeLikeNewController,
 };

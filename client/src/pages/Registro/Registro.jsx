@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import HomeMobile from '../Home/HomeMobile';
 import axios from 'axios';
 import * as yup from "yup";
 import { useFormik } from "formik";
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Toolbar from '@mui/material/Toolbar';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Footer from '../../components/Footer/Footer';
@@ -31,7 +30,7 @@ const validationSchema = yup.object({
 
 export default function Registro() {
   useEffect(() => document.title = 'Registro - Entretiempo Sanjuanino', []);
-  
+
   const goto = useNavigate();
 
   const formik = useFormik({
@@ -53,14 +52,8 @@ export default function Registro() {
 
   return (
     <div>
-       <AppBar position="fixed">
-        <Toolbar>
-          <Typography onClick={() => goto('/')} variant="h6" noWrap sx={{ '&:hover': { cursor: 'pointer' }}}>
-            Entretiempo Sanjuanino
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Container size='xl' sx={{ marginTop: '40px', marginBottom: '60px'}}>
+      <HomeMobile />
+      <Container size='xl' sx={{ marginTop: '30px', marginBottom: '60px', background: 'white', borderRadius: '5px', padding: '30px', paddingBottom: '60px' }}>
         <Box className='center-completo'>
           <Box sx={{ margin: '30px' }}>
             <Typography variant='h5'>Regístrate en</Typography>
@@ -120,7 +113,7 @@ export default function Registro() {
                   formik.errors.password
                 }
               />
-              <Button variant='contained' type='submit' sx={{ width: '100%'}}>
+              <Button variant='contained' type='submit' sx={{ width: '100%' }}>
                 Registrarme
               </Button>
             </form>

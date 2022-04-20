@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllMatches } from '../../services/data.service';
+import { getNews } from '../../services/news.service';
 import Footer from '../../components/Footer/Footer';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -8,21 +9,26 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Match from '../../components/Home/Match';
+import New from '../../components/Home/New';
 import LoaderMain from '../../components/Loaders/LoaderMain';
 
 export default function Home({ logged }) {
   const goto = useNavigate();
   const [matches, setMatches] = useState([]);
+  const [news, setNews] = useState([]);
+  
   const [loadingMatches, setLoadingMatches] = useState(true);
-
   const [loadingNews, setLoadingNews] = useState(true);
+
   const [loadingPronosticados, setLoadingPronosticados] = useState(true);
   const [loadingPremios, setLoadingPremios] = useState(true);
   const [loadingPronosticadores, setLoadingPronosticadores] = useState(true);
 
   const loadData = async () => {
     setMatches(await getAllMatches());
+    setNews(await getNews());
     setLoadingMatches(false);
+    setLoadingNews(false);
   };
 
   useEffect(() => {
@@ -57,16 +63,21 @@ export default function Home({ logged }) {
                   Cargando
                 </Typography>
                 :
-                null
+                news.length ?
+                  news.slice(0, 3).map((m) => <New key={m._id} data={m} />)
+                  :
+                  <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
+                    No hay Noticias
+                  </Typography>
             }
           </Box>
           <CardActions sx={{ float: 'right' }}>
-            <Button size="small">Ver todas las noticias</Button>
+            <Button size="small" onClick={() => goto('/noticias')}>Ver todas las noticias</Button>
           </CardActions>
         </Card>
         <Card sx={{ minWidth: 275, margin: '10px' }}>
           <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-            Últimos 4 partidos cargados
+            Últimos partidos agregados
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
             {

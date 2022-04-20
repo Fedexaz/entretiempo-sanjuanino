@@ -48,9 +48,35 @@ const deleteNewCommentService = async (_id) => {
     }
 };
 
+const addLikeNewCommentService = async (_id, idComentario) => {
+    try {
+        const respuesta = await newComment.findById(idComentario);
+        respuesta.likes.push(_id);
+        await respuesta.save();
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+const removeLikeNewCommentService = async (_id, idComentario) => {
+    try {
+        const respuesta = await newComment.findById(idComentario);
+        respuesta.likes = respuesta.likes.filter(id => id != _id);
+        await respuesta.save();
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
 module.exports = {
     getNewCommentsService,
     addNewCommentService,
     editNewCommentService,
-    deleteNewCommentService
+    deleteNewCommentService,
+    addLikeNewCommentService,
+    removeLikeNewCommentService
 };

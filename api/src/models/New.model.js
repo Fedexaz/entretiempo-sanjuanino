@@ -9,6 +9,10 @@ const newSchema = new Schema({
         type: String,
         required: true
     },
+    img: {
+        type: String,
+        default: "no-image"
+    },
     hechaPor: {
         type: String,
         required: true

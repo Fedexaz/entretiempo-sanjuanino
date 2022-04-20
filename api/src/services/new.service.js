@@ -40,6 +40,7 @@ const editNewService = async (_id, data) => {
         const respuesta = await New.findById(_id);
         respuesta.titulo = data.titulo;
         respuesta.descripcion = data.descripcion;
+        respuesta.img = data.img ? data.img : "no-image";
         await respuesta.save();
         return true;
     } catch (error) {
@@ -58,10 +59,36 @@ const deleteNewService = async (_id) => {
     }
 };
 
+const addLikeNewService = async (_id, idNoticia) => {
+    try {
+        const respuesta = await New.findById(idNoticia);
+        respuesta.likes.push(_id);
+        await respuesta.save();
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+const removeLikeNewService = async (_id, idNoticia) => {
+    try {
+        const respuesta = await New.findById(idNoticia);
+        respuesta.likes = respuesta.likes.filter(id => id != _id);
+        await respuesta.save();
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
 module.exports = {
     getNewsService,
     getNewService,
     addNewService,
     editNewService,
     deleteNewService,
+    addLikeNewService,
+    removeLikeNewService
 };

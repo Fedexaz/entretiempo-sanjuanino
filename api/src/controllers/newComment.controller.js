@@ -3,12 +3,14 @@ const {
     addNewCommentService,
     editNewCommentService,
     deleteNewCommentService,
+    addLikeNewCommentService,
+    removeLikeNewCommentService
 } = require('../services/newComment.service');
 
 const getNewCommentsController = async (request, response) => {
-    const { _id } = request.query;
+    const { newId } = request.params;
     try {
-        const respuesta = await getNewCommentsService(_id);
+        const respuesta = await getNewCommentsService(newId);
         if(respuesta.length) {
             return response.status(200).json(respuesta);
         }
@@ -21,10 +23,10 @@ const getNewCommentsController = async (request, response) => {
 };
 
 const addNewCommentController = async (request, response) => {
-    const { idUsuario, idNoticia, comentario } = request.query;
+    const { usuario, idNoticia, comentario } = request.body;
 
-    if(!idUsuario || !idNoticia || !comentario) {
-        return response.status(400).json({ message: "Faltan datos para agregar la noticia" });
+    if(!usuario || !idNoticia || !comentario) {
+        return response.status(400).json({ message: "Faltan datos para agregar el comentario" });
     }
 
     try {
@@ -44,7 +46,7 @@ const editNewCommentController = async (request, response) => {
     const { comentario } = request.query;
     
     if(!_id || !comentario) {
-        return response.status(400).json({ message: "Faltan datos para agregar la noticia" });
+        return response.status(400).json({ message: "Faltan datos para agregar el comentario" });
     }
     
     try {
@@ -68,7 +70,7 @@ const deleteNewCommentController = async (request, response) => {
     }
 
     try {
-        const respuesta = await editNewCommentService(request.query);
+        const respuesta = await deleteNewCommentService(request.query);
         if(respuesta) {
             return response.status(200).json({ message: 'Comentario eliminado correctamente' });
         }
@@ -80,9 +82,47 @@ const deleteNewCommentController = async (request, response) => {
     }
 };
 
+const addLikeNewCommentController = async (request, response) => {
+    if(!request.body._id || !request.body.idComentario) {
+        return response.status(403).json({ message: 'Ups, algo ha salido mal' });
+    }
+    
+    try {
+        const respuesta = addLikeNewCommentService(request.body._id, request.body.idComentario);
+        if(respuesta) {
+            return response.status(200).json({ message: 'Like agregado correctamente! '});
+        } 
+        else {
+            return response.status(400).json({ message: 'Error al darle like al comentario' });
+        }
+    } catch (error) {
+        return response.status(500).json({ message: 'Error interno del servidor '});
+    }
+};
+
+const removeLikeNewCommentController = async (request, response) => {
+    if(!request.body._id || !request.body.idComentario) {
+        return response.status(403).json({ message: 'Ups, algo ha salido mal' });
+    }
+
+    try {
+        const respuesta = removeLikeNewCommentService(request.body._id, request.body.idComentario);
+        if(respuesta) {
+            return response.status(200).json({ message: 'Like eliminado correctamente! '});
+        } 
+        else {
+            return response.status(400).json({ message: 'Error al eliminar el like del comentario' });
+        }
+    } catch (error) {
+        return response.status(500).json({ message: 'Error interno del servidor '});
+    }
+};
+
 module.exports = {
     getNewCommentsController,
     addNewCommentController,
     editNewCommentController,
     deleteNewCommentController,
+    removeLikeNewCommentController,
+    addLikeNewCommentController
 };

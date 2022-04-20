@@ -2,20 +2,25 @@ const { Router } = require('express');
 const passport = require('passport');
 const modVerify = require('../middlewares/modVerify');
 
-const { 
+const {
     getNewsController,
     getNewController,
     addNewController,
     editNewController,
-    deleteNewController,   
- } = require('../controllers/new.controller');
+    deleteNewController,
+    addLikeNewController,
+    removeLikeNewController,
+} = require('../controllers/new.controller');
 
 const newRoutes = Router();
 
-newRoutes.get('/news', getNewsController);
-newRoutes.get('/new', getNewController);
-newRoutes.post('/new', /* passport.authenticate('jwt', { session: false }), modVerify, */ addNewController);
-newRoutes.put('/new', /* passport.authenticate('jwt', { session: false }), modVerify, */ editNewController);
-newRoutes.delete('/new', /* passport.authenticate('jwt', { session: false }), modVerify, */ deleteNewController);
+newRoutes.get('/all', getNewsController);
+newRoutes.get('/', getNewController);
+newRoutes.post('/', passport.authenticate('jwt', { session: false }), modVerify, addNewController);
+newRoutes.put('/', passport.authenticate('jwt', { session: false }), modVerify, editNewController);
+newRoutes.delete('/', passport.authenticate('jwt', { session: false }), modVerify, deleteNewController);
+
+newRoutes.post('/like', passport.authenticate('jwt', { session: false }), addLikeNewController);
+newRoutes.delete('/like', passport.authenticate('jwt', { session: false }), removeLikeNewController);
 
 module.exports = newRoutes;

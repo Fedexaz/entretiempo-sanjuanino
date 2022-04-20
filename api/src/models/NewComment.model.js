@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const newCommentSchema = new Schema({
-    idUsuario: {
+    usuario: {
         type: String,
         required: true
     },
