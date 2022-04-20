@@ -11,9 +11,11 @@ import Typography from '@mui/material/Typography';
 import Match from '../../components/Home/Match';
 import New from '../../components/Home/New';
 import LoaderMain from '../../components/Loaders/LoaderMain';
+import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
 
 export default function Home({ logged }) {
   const goto = useNavigate();
+  const axios = useAxiosPrivate();
   const [matches, setMatches] = useState([]);
   const [news, setNews] = useState([]);
   
@@ -25,8 +27,8 @@ export default function Home({ logged }) {
   const [loadingPronosticadores, setLoadingPronosticadores] = useState(true);
 
   const loadData = async () => {
-    setMatches(await getAllMatches());
-    setNews(await getNews());
+    setMatches(await getAllMatches(axios));
+    setNews(await getNews(axios));
     setLoadingMatches(false);
     setLoadingNews(false);
   };

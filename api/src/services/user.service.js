@@ -24,11 +24,16 @@ const userRegisterService = async (request) => {
 };
 
 const userLoginService = (user) => {
-    const data = { id: user._id, email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team  };
-    const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '10d' });
-    return token;
+    return jwt.sign({ id: user._id, email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team }, process.env.JWT_SECRET, {
+        expiresIn: '15m'
+    });
 };
 
+const createRefreshTokenService = (user) => {
+    return jwt.sign({ id: user._id, email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team }, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: '7d'
+    });
+};
 
 const userPasswordService = async (user, password) => {
     try {
@@ -89,6 +94,7 @@ const userRecoverPasswordService = async () => {
 module.exports = {
     userRegisterService,
     userLoginService,
+    createRefreshTokenService,
     userPasswordService,
     userGetDataService,
     userEditService,

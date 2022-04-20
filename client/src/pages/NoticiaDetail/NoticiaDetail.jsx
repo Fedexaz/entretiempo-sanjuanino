@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { getNew, getNewComments, addNewComment } from '../../services/news.service';
 import { useParams, useNavigate } from 'react-router-dom';
-
 import HomeMobile from '../Home/HomeMobile';
 import Footer from '../../components/Footer/Footer';
 import LoaderMain from '../../components/Loaders/LoaderMain';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
 
 export default function NoticiaDetail() {
+  const axios = useAxiosPrivate();
   const { id } = useParams();
   const goto = useNavigate();
 
@@ -39,12 +38,12 @@ export default function NoticiaDetail() {
   }, []);
 
   const loadComments = async () => {
-    setComentarios(await getNewComments(id));
+    setComentarios(await getNewComments(axios, id));
     setCargandoComentarios(false);
   };
 
   const loadData = async () => {
-    setNoticia(await getNew(id));
+    setNoticia(await getNew(axios, id));
     setCargando(false);
   };
 
@@ -55,7 +54,7 @@ export default function NoticiaDetail() {
   const enviarComentario = async () => {
     if(nuevoComentario.length) {
       setNuevoComentario('');
-      const respuesta = await addNewComment(id, nuevoComentario);
+      const respuesta = await addNewComment(axios, id, nuevoComentario);
       if(respuesta) {
         console.log('Comentario agregado!');
         loadComments(id);

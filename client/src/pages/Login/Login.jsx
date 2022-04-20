@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setToken } from '../../redux/actions/';
 import HomeMobile from '../Home/HomeMobile';
 import decoder from 'jwt-decode';
-import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
+import axios from 'axios';
 import * as yup from "yup";
 import { useFormik } from "formik";
 import Container from '@mui/material/Container';
@@ -12,6 +11,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Footer from '../../components/Footer/Footer';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../redux/actions';
 
 const validationSchema = yup.object({
   email: yup
@@ -26,11 +27,10 @@ const validationSchema = yup.object({
 });
 
 export default function Login() {
-  const axios = useAxiosPrivate();
-  
   useEffect(() => document.title = 'Iniciar sesión - Entretiempo Sanjuanino', []);
 
   const goto = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -40,15 +40,16 @@ export default function Login() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const datos = await axios.post('/user/login', values)
-        var decoded = jwt_decode(datos.data);
+        const response = await axios.post("http://localhost:3001/user/login", values);
+        var decoded = decoder(response.data);
         const storage = window.localStorage;
-        dispatch(setToken(datos.data));
+        dispatch(setToken(response.data));
         storage.setItem('data', JSON.stringify(decoded));
         storage.setItem('loggedIn', 'true');
+        console.log('login')
         goto("/");
       } catch (e) {
-        console.log(e.response.data.message);
+        console.log(e);
       }
     },
   });

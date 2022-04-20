@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-export const getAllMatches = async () => {
+export const getAllMatches = async (axios) => {
     try {
         let data = [];
         const res = await axios.get(`/api/match/all?key=${process.env.REACT_APP_TOKEN_API_ENTRETIEMPO ? process.env.REACT_APP_TOKEN_API_ENTRETIEMPO : 'fede'}`);
@@ -12,7 +10,7 @@ export const getAllMatches = async () => {
     }
 };
 
-export const getMatch = async (id) => {
+export const getMatch = async (axios, id) => {
     try {
         let data;
         const res = await axios.get(`/api/match/?id=${id}&key=${process.env.REACT_APP_TOKEN_API_ENTRETIEMPO ? process.env.REACT_APP_TOKEN_API_ENTRETIEMPO : 'fede'}`);
@@ -22,4 +20,4 @@ export const getMatch = async (id) => {
         console.log(error.response.message);
         return false;
     }
-};
+}

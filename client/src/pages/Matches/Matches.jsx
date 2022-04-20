@@ -25,8 +25,10 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import fechaCorrecta from 'date-fns/locale/es';
+import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
 
 export default function Matches() {
+  const axios = useAxiosPrivate();
   useEffect(() => document.title = 'Partidos - Entretiempo Sanjuanino');
 
   const [loadingMatches, setLoadingMatches] = useState(true);
@@ -51,8 +53,8 @@ export default function Matches() {
   const [filtrarPorEvento, setFiltrarPorEvento] = useState('');
 
   const loadData = async () => {
-    setMatches(await getAllMatches());
-    setMatchesBackup(await getAllMatches());
+    setMatches(await getAllMatches(axios));
+    setMatchesBackup(await getAllMatches(axios));
     setLoadingMatches(false);
   };
 

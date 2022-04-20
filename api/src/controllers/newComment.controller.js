@@ -30,7 +30,7 @@ const addNewCommentController = async (request, response) => {
     }
 
     try {
-        const respuesta = await addNewCommentService(request.query);
+        const respuesta = await addNewCommentService(request.body);
         if(respuesta) {
             return response.status(200).json(respuesta);
         }

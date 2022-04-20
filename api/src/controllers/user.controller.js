@@ -1,6 +1,7 @@
 const {
     userRegisterService,
     userLoginService,
+    createRefreshTokenService,
     userPasswordService,
     userGetDataService,
     userEditService,
@@ -39,8 +40,11 @@ const userLoginController = async (request, response) => {
         const token = userLoginService(user);
         if (!token) return response.status(400).json({ message: `No se pudo crear el token` });
 
-        response.cookie('token', token, { httpOnly: true, maxAge: 10 * 24 * 60 * 60 * 1000 });
-        return response.status(200).json({ data: token });
+        const refreshToken = createRefreshTokenService(user);
+        if (!refreshToken) return response.status(400).json({ message: `No se pudo crear el refresh token` });
+
+        console.log(response.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000, secure:false }));
+        return response.status(200).json(token);
     } catch (e) {
         return response.status(e.status || 400).json({ message: e.message || e });
     }

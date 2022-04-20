@@ -6,7 +6,7 @@ import App from './App';
 import './index.css';
 import moment from 'moment';
 import 'moment/locale/es';
-import store from './redux/store';
+import { store } from './redux/store';
 
 const fechas = moment();
 fechas.locale('es');
@@ -18,4 +18,4 @@ ReactDOM.render(
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
-)
+);

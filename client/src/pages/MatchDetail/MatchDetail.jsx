@@ -12,8 +12,10 @@ import Alert from '@mui/material/Alert';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
 
 export default function MatchDetail() {
+  const axios = useAxiosPrivate();
   const goto = useNavigate();
   const { id } = useParams();
   const [match, setMatch] = useState({});
@@ -30,7 +32,7 @@ export default function MatchDetail() {
   }, []);
 
   const loadMatch = async () => {
-    setMatch(await getMatch(id));
+    setMatch(await getMatch(axios, id));
     setLoaded(true);
   };
 

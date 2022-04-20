@@ -1,10 +1,9 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-export const handleRefreshToken = async (req, res) => { 
-    	
+const handleRefreshToken = async (req, res) => {
     try {
         const cookies = req.cookies;
 
@@ -21,11 +20,11 @@ export const handleRefreshToken = async (req, res) => {
             return res.status(200).send(token);
         });
     } catch (e) {
-        return res.status(e.status || 400).json({ message: e.message || e });
+        return res.status(403).json({ message: e});
     }
 }
 
-export const clearRefreshToken = async (req, res) => {
+const clearRefreshToken = async (req, res) => {
     try {
         const cookies = req.cookies;
 
@@ -39,7 +38,7 @@ export const clearRefreshToken = async (req, res) => {
     }
 }
 
-export const protectedRoute =async (req, res) => {
+const protectedRoute =async (req, res) => {
     try {
         res.send({ message: 'You are authenticated' + ' data: ' + req.body.data }); 
     } catch (e) {
@@ -47,4 +46,8 @@ export const protectedRoute =async (req, res) => {
     }
 }
 
-
+module.exports = {
+    handleRefreshToken,
+    clearRefreshToken,
+    protectedRoute
+}

@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-export const getNews = async () => {
+export const getNews = async (axios) => {
     try {
         const respuesta = await axios.get('/new/all');
         return respuesta.data;
@@ -10,7 +8,7 @@ export const getNews = async () => {
     }
 };
 
-export const getNew = async (id) => {
+export const getNew = async (axios, id) => {
     try {
         const respuesta = await axios.get(`/new/?_id=${id}`);
         return respuesta.data;
@@ -20,7 +18,7 @@ export const getNew = async (id) => {
     }
 };
 
-export const getNewComments = async (id) => {
+export const getNewComments = async (axios, id) => {
     try {
         const respuesta = await axios.get(`/newComment/${id}`);
         return respuesta.data;
@@ -30,22 +28,15 @@ export const getNewComments = async (id) => {
     }
 };
 
-export const addNewComment = async (id, comentario) => {
+export const addNewComment = async (axios, id, comentario) => {
     try {
         const usuario = JSON.parse(localStorage.getItem('data')).userName;
-        const token = localStorage.getItem('token');
-        const respuesta = await axios.post(`/newComment/`,
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                },
-                data: {
-                    comentario,
-                    idNoticia: id,
-                    usuario
-                }
-            }
-        );
+        const respuesta = await axios.post(`/newComment/`, {
+            comentario,
+            idNoticia: id,
+            usuario
+        });
+        console.log(respuesta);
         return respuesta.data ? true : false;
     } catch (error) {
         console.log(error.response);

@@ -8,4 +8,4 @@ router.get('/', handleRefreshToken);
 router.get('/clear', clearRefreshToken);
 router.post('/protected', passport.authenticate('jwt', {session: false}), protectedRoute);
 
-export default router;
+module.exports = router;
