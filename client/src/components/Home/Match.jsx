@@ -12,7 +12,7 @@ export default function Match({ data }) {
   const { _id, teamLocal, teamVisitante, provincia, departamento, cancha, fechaJuego, evento } = data;
 
   return (
-    <Card sx={{ minWidth: 250, m: 1, border: 'solid 1px #B7C8FF' }}>
+    <Card onClick={() => goto(`/partido/${_id}`)} sx={{ minWidth: 250, m: 1, boxShadow: 3, border: 'solid 1px #B7C8AA', transition: '0.3s', '&:hover': { transform: 'scale(1.01)', cursor: 'pointer' } }}>
       <CardContent>
         <Typography sx={{ fontSize: 16 }} gutterBottom>
           {fechaJuego}
@@ -27,9 +27,6 @@ export default function Match({ data }) {
           <br />
           Cancha: <strong>{cancha}</strong>
         </Typography>
-        <CardActions sx={{ float: 'right' }}>
-          <Button size="small" onClick={() => goto(`/partido/${_id}`)}>Ver detalles</Button>
-        </CardActions>
       </CardContent>
     </Card>
   );

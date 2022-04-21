@@ -79,7 +79,7 @@ export default function NoticiaDetail() {
       return true;
     }
   }
-  
+
   const agregarLikeNoticia = async (userID, idNoticia) => {
     try {
       const resp = await addNewLike(axios, userID, idNoticia);
@@ -143,108 +143,111 @@ export default function NoticiaDetail() {
   return (
     <>
       <HomeMobile />
+      <Button onClick={() => goto('/noticias')} variant='contained' sx={{ marginLeft: '10px' }}>volver a las noticias</Button>
       <Box sx={{ display: 'flex', flexDirection: 'column', padding: '10px', background: 'white', margin: '10px', borderRadius: '5px' }}>
         {
           !cargando ?
             noticia._id ?
-              <Box>
-                {
-                  noticia.img === 'no-image' ?
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/React_Native_Logo.png" width='100%' alt="noticia sin imagen" />
-                    :
-                    <img src={noticia.img} width='100%' alt={noticia.titulo} />
-                }
-                <Box sx={{ marginTop: '20px', marginLeft: '10px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                  <Box>
-                    <Typography variant='h4'>
-                      {noticia.titulo}
-                    </Typography>
-                    <Typography>
-                      Por <strong>{noticia.hechaPor}</strong>, el <strong>{noticia.createdAt}</strong>
-                    </Typography>
+              <>
+                <Box>
+                  {
+                    noticia.img === 'no-image' ?
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/React_Native_Logo.png" width='100%' alt="noticia sin imagen" />
+                      :
+                      <img src={noticia.img} width='100%' alt={noticia.titulo} />
+                  }
+                  <Box sx={{ marginTop: '20px', marginLeft: '10px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    <Box>
+                      <Typography variant='h4'>
+                        {noticia.titulo}
+                      </Typography>
+                      <Typography>
+                        Por <strong>{noticia.hechaPor}</strong>, el <strong>{noticia.createdAt}</strong>
+                      </Typography>
+                    </Box>
+                    <Button sx={{ marginTop: '10px' }} onClick={() => hasLikedNew(userID, noticia.likes) ? agregarLikeNoticia(userID, noticia._id) : removerLikeNoticia(userID, noticia._id)}>
+                      {
+                        hasLikedNew(userID, noticia.likes) ?
+                          <ThumbUpOutlinedIcon sx={{ fontSize: '20px' }} />
+                          :
+                          <ThumbUpIcon sx={{ fontSize: '20px' }} />
+                      }
+                      &nbsp;
+                      <Typography>
+                        {noticia.likes.length}
+                      </Typography>
+                    </Button>
                   </Box>
-                  <Button sx={{ marginTop: '10px' }} onClick={() => hasLikedNew(userID, noticia.likes) ? agregarLikeNoticia(userID, noticia._id) : removerLikeNoticia(userID, noticia._id)}>
-                    {
-                      hasLikedNew(userID, noticia.likes) ?
-                        <ThumbUpOutlinedIcon sx={{ fontSize: '20px' }} />
-                        :
-                        <ThumbUpIcon sx={{ fontSize: '20px' }} />
-                    }
-                    &nbsp;
-                    <Typography>
-                      {noticia.likes.length}
-                    </Typography>
-                  </Button>
-                </Box>
-                <Typography variant='body1' sx={{ padding: '20px' }}>
-                  {noticia.descripcion}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
-                  <Typography variant='h6'>
-                    Comentarios ({comentarios.length ? comentarios.length : '0'})
+                  <Typography variant='body1' sx={{ padding: '20px' }}>
+                    {noticia.descripcion}
                   </Typography>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    {
-                      !cargandoComentarios ?
-                        comentarios.length ?
-                          <Box sx={{ display: 'flex', flexDirection: 'column', padding: '5px' }}>
-                            {
-                              comentarios?.map(comentario => {
-                                return (
-                                  <Box key={comentario._id} sx={{ border: 'solid 1px #9CB3FE', background: '#DAE3FF', borderRadius: '5px', padding: '15px', marginTop: '10px' }}>
-                                    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                      <Typography>
-                                        <strong>{comentario.usuario}</strong> <span style={{ fontSize: '13px' }}>{timeLeftComment(comentario.fecha)}</span>
-                                      </Typography>
-                                      <Button size='small' onClick={() => hasLikedNew(userID, comentario.likes) ? agregarLikeComentario(userID, comentario._id) : removerLikeComentario(userID, comentario._id)}>
-                                        {
-                                          hasLikedNew(userID, comentario.likes) ?
-                                            <ThumbUpOutlinedIcon sx={{ fontSize: '14px' }} />
-                                            :
-                                            <ThumbUpIcon sx={{ fontSize: '14px' }} />
-                                        }
-                                        &nbsp;
-                                        <Typography sx={{ fontSize: '16px' }}>
-                                          {comentario.likes.length}
+                  <Box sx={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
+                    <Typography variant='h6'>
+                      Comentarios ({comentarios.length ? comentarios.length : '0'})
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                      {
+                        !cargandoComentarios ?
+                          comentarios.length ?
+                            <Box sx={{ display: 'flex', flexDirection: 'column', padding: '5px' }}>
+                              {
+                                comentarios?.map(comentario => {
+                                  return (
+                                    <Box key={comentario._id} sx={{ border: 'solid 1px #9CB3FE', background: '#DAE3FF', borderRadius: '5px', padding: '15px', marginTop: '10px' }}>
+                                      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <Typography>
+                                          <strong>{comentario.usuario}</strong> <span style={{ fontSize: '13px' }}>{timeLeftComment(comentario.fecha)}</span>
                                         </Typography>
-                                      </Button>
+                                        <Button size='small' onClick={() => hasLikedNew(userID, comentario.likes) ? agregarLikeComentario(userID, comentario._id) : removerLikeComentario(userID, comentario._id)}>
+                                          {
+                                            hasLikedNew(userID, comentario.likes) ?
+                                              <ThumbUpOutlinedIcon sx={{ fontSize: '14px' }} />
+                                              :
+                                              <ThumbUpIcon sx={{ fontSize: '14px' }} />
+                                          }
+                                          &nbsp;
+                                          <Typography sx={{ fontSize: '16px' }}>
+                                            {comentario.likes.length}
+                                          </Typography>
+                                        </Button>
+                                      </Box>
+                                      <Typography variant='body1'>
+                                        {comentario.comentario}
+                                      </Typography>
                                     </Box>
-                                    <Typography variant='body1'>
-                                      {comentario.comentario}
-                                    </Typography>
-                                  </Box>
-                                )
-                              })
-                            }
-                          </Box>
+                                  )
+                                })
+                              }
+                            </Box>
+                            :
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '60px' }}>
+                              <Typography variant='h6'>
+                                Aún no hay comentarios, <strong>¡Sé el primero en comentar!</strong>
+                              </Typography>
+                            </Box>
                           :
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '60px' }}>
-                            <Typography variant='h6'>
-                              Aún no hay comentarios, <strong>¡Sé el primero en comentar!</strong>
-                            </Typography>
+                            <LoaderMain />
+                            <Typography variant='h5'>Cargando comentarios...</Typography>
                           </Box>
-                        :
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '60px' }}>
-                          <LoaderMain />
-                          <Typography variant='h5'>Cargando comentarios...</Typography>
-                        </Box>
-                    }
-                    <Box sx={{ display: 'flex', flexDirection: 'column', padding: '5px', margin: '20px' }}>
-                      <Typography sx={{ marginBottom: '10px' }}>Escribe un comentario:</Typography>
-                      <TextField
-                        id="comentario"
-                        label="Comentario"
-                        multiline
-                        onChange={handleChange}
-                        value={nuevoComentario}
-                        rows={3}
-                        placeholder="Escribe tu comentario aquí"
-                      />
-                      <Button variant='contained' sx={{ marginTop: '10px' }} onClick={enviarComentario}>Comentar noticia</Button>
+                      }
+                      <Box sx={{ display: 'flex', flexDirection: 'column', padding: '5px', margin: '20px' }}>
+                        <Typography sx={{ marginBottom: '10px' }}>Escribe un comentario:</Typography>
+                        <TextField
+                          id="comentario"
+                          label="Comentario"
+                          multiline
+                          onChange={handleChange}
+                          value={nuevoComentario}
+                          rows={3}
+                          placeholder="Escribe tu comentario aquí"
+                        />
+                        <Button variant='contained' sx={{ marginTop: '10px' }} onClick={enviarComentario}>Comentar noticia</Button>
+                      </Box>
                     </Box>
                   </Box>
                 </Box>
-              </Box>
+              </>
               :
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '60px' }}>
                 <Typography variant='h5'>La noticia que buscas no existe :(</Typography>

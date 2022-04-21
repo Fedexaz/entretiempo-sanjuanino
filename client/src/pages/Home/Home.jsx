@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Match from '../../components/Home/Match';
 import New from '../../components/Home/New';
+import BannerHome from '../../resources/images/bannerHome.jpg';
 import LoaderMain from '../../components/Loaders/LoaderMain';
 import { useAxiosPrivate } from '../../auth/useAxiosPrivate';
 
@@ -44,13 +45,15 @@ export default function Home({ logged }) {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ background: '#E4F2FC', marginBottom: '20px', border: 'solid 1px #AEDAFC', padding: '20px', borderRadius: '5px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid grey', justifyContent: 'flex-end', background: `url(${BannerHome})`, backgroundSize: 'cover', backgroundPosition: 'center', marginBottom: '5px', borderRadius: '5px', height: '350px' }}>
+          <Box sx={{ background: 'white', padding: '15px', opacity: '80%' }}>
           <Typography variant='h2'>
-            Entretiempo Sanjuanino
+            Entretiempo de San Juan
           </Typography>
           <Typography variant='h5'>
             Todo el fútbol en una sóla página
           </Typography>
+          </Box>
         </Box>
         <Card sx={{ minWidth: 275, margin: '10px' }}>
           <Typography sx={{ fontSize: 17, padding: '10px' }} gutterBottom>
@@ -73,8 +76,8 @@ export default function Home({ logged }) {
                   </Typography>
             }
           </Box>
-          <CardActions sx={{ float: 'right' }}>
-            <Button size="small" onClick={() => goto('/noticias')}>Ver todas las noticias</Button>
+          <CardActions sx={{ float: 'right', padding: '10px' }}>
+            <Button size="small" variant='contained' onClick={() => goto('/noticias')}>Ver todas las noticias</Button>
           </CardActions>
         </Card>
         <Card sx={{ minWidth: 275, margin: '10px' }}>
@@ -98,8 +101,8 @@ export default function Home({ logged }) {
                   </Typography>
             }
           </Box>
-          <CardActions sx={{ float: 'right' }}>
-            <Button size="small" onClick={() => goto('/partidos')}>Ver todos los partidos</Button>
+          <CardActions sx={{ float: 'right', padding: '10px' }}>
+            <Button size="small" variant='contained' onClick={() => goto('/partidos')}>Ver todos los partidos</Button>
           </CardActions>
         </Card>
         {
@@ -138,8 +141,8 @@ export default function Home({ logged }) {
                       null
                   }
                 </Box>
-                <CardActions sx={{ float: 'right' }}>
-                  <Button size="small">Ver todos los premios</Button>
+                <CardActions sx={{ float: 'right', padding: '10px' }}>
+                  <Button size="small" variant='contained'>Ver todos los premios</Button>
                 </CardActions>
               </Card>
               <Card sx={{ minWidth: 275, margin: '10px' }}>

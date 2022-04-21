@@ -260,7 +260,7 @@ export default function HomeDesktop() {
             null
         }
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
         <Home logged={logged} />
       </Box>
