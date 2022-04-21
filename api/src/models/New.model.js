@@ -18,6 +18,7 @@ const newSchema = new Schema({
         required: true
     },
     likes: Array,
+    comments: Array,
     createdAt: String
 });
 

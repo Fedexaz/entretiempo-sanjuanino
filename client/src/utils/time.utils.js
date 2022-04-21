@@ -4,6 +4,10 @@ export const timeLeft = (fecha) => {
   return moment(fecha, "DD/MM/YYYY").fromNow();
 };
 
+export const timeLeftComment = (fecha) => {
+  return moment(fecha).fromNow();
+};
+
 export const seHaJugado = (fecha) => {
   const hoy = moment();
   const date = moment(fecha, "DD/MM/YYYY");

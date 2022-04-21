@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getNew, getNewComments, addNewComment } from '../../services/news.service';
+import { getNew, getNewComments, addNewComment, addNewLike, addNewLikeComment, removeNewLike, removeNewLikeComment } from '../../services/news.service';
 import { useParams, useNavigate } from 'react-router-dom';
+import { timeLeftComment } from '../../utils/time.utils';
 import HomeMobile from '../Home/HomeMobile';
 import Footer from '../../components/Footer/Footer';
 import LoaderMain from '../../components/Loaders/LoaderMain';
@@ -18,6 +19,7 @@ export default function NoticiaDetail() {
   const goto = useNavigate();
 
   const [nuevoComentario, setNuevoComentario] = useState('');
+  const [userID, setUserID] = useState(JSON.parse(localStorage.getItem('data')).id);
 
   const [noticia, setNoticia] = useState({});
   const [comentarios, setComentarios] = useState([]);
@@ -52,10 +54,10 @@ export default function NoticiaDetail() {
   };
 
   const enviarComentario = async () => {
-    if(nuevoComentario.length) {
+    if (nuevoComentario.length) {
       setNuevoComentario('');
       const respuesta = await addNewComment(axios, id, nuevoComentario);
-      if(respuesta) {
+      if (respuesta) {
         console.log('Comentario agregado!');
         loadComments(id);
       }
@@ -65,6 +67,76 @@ export default function NoticiaDetail() {
     }
     else {
       console.log('El comentario no puede estar vacio!');
+    }
+  };
+
+  const hasLikedNew = (id, likes) => {
+    const like = likes.find(el => el === id);
+    if (like) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  
+  const agregarLikeNoticia = async (userID, idNoticia) => {
+    try {
+      const resp = await addNewLike(axios, userID, idNoticia);
+      if (resp) {
+        await loadData();
+        console.log('Like agregado');
+      }
+      else {
+        console.log('Error al agregar like');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const agregarLikeComentario = async (userID, idComentario) => {
+    try {
+      const resp = await addNewLikeComment(axios, userID, idComentario);
+      if (resp) {
+        await loadComments();
+        console.log('Like agregado');
+      }
+      else {
+        console.log('Error al agregar like');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removerLikeNoticia = async (userID, idNoticia) => {
+    try {
+      const resp = await removeNewLike(axios, userID, idNoticia);
+      if (resp) {
+        await loadData();
+        console.log('Like removido');
+      }
+      else {
+        console.log('Error al remover like');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removerLikeComentario = async (userID, idComentario) => {
+    try {
+      const resp = await removeNewLikeComment(axios, userID, idComentario);
+      if (resp) {
+        await loadComments();
+        console.log('Like removido');
+      }
+      else {
+        console.log('Error al remover like');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -91,8 +163,14 @@ export default function NoticiaDetail() {
                       Por <strong>{noticia.hechaPor}</strong>, el <strong>{noticia.createdAt}</strong>
                     </Typography>
                   </Box>
-                  <Button sx={{ marginTop: '10px' }}>
-                    <ThumbUpOutlinedIcon sx={{ fontSize: '20px' }}/>&nbsp;
+                  <Button sx={{ marginTop: '10px' }} onClick={() => hasLikedNew(userID, noticia.likes) ? agregarLikeNoticia(userID, noticia._id) : removerLikeNoticia(userID, noticia._id)}>
+                    {
+                      hasLikedNew(userID, noticia.likes) ?
+                        <ThumbUpOutlinedIcon sx={{ fontSize: '20px' }} />
+                        :
+                        <ThumbUpIcon sx={{ fontSize: '20px' }} />
+                    }
+                    &nbsp;
                     <Typography>
                       {noticia.likes.length}
                     </Typography>
@@ -116,12 +194,18 @@ export default function NoticiaDetail() {
                                   <Box key={comentario._id} sx={{ border: 'solid 1px #9CB3FE', background: '#DAE3FF', borderRadius: '5px', padding: '15px', marginTop: '10px' }}>
                                     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                       <Typography>
-                                        <strong>{comentario.usuario}</strong>
+                                        <strong>{comentario.usuario}</strong> <span style={{ fontSize: '13px' }}>{timeLeftComment(comentario.fecha)}</span>
                                       </Typography>
-                                      <Button size='small'>
-                                        <ThumbUpOutlinedIcon sx={{ fontSize: '14px' }}/>&nbsp;
+                                      <Button size='small' onClick={() => hasLikedNew(userID, comentario.likes) ? agregarLikeComentario(userID, comentario._id) : removerLikeComentario(userID, comentario._id)}>
+                                        {
+                                          hasLikedNew(userID, comentario.likes) ?
+                                            <ThumbUpOutlinedIcon sx={{ fontSize: '14px' }} />
+                                            :
+                                            <ThumbUpIcon sx={{ fontSize: '14px' }} />
+                                        }
+                                        &nbsp;
                                         <Typography sx={{ fontSize: '16px' }}>
-                                          {noticia.likes.length}
+                                          {comentario.likes.length}
                                         </Typography>
                                       </Button>
                                     </Box>

@@ -43,7 +43,7 @@ const userLoginController = async (request, response) => {
         const refreshToken = createRefreshTokenService(user);
         if (!refreshToken) return response.status(400).json({ message: `No se pudo crear el refresh token` });
 
-        console.log(response.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000, secure:false }));
+        response.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
         return response.status(200).json(token);
     } catch (e) {
         return response.status(e.status || 400).json({ message: e.message || e });

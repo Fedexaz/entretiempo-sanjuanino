@@ -13,14 +13,14 @@ const handleRefreshToken = async (req, res) => {
 
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
             if(err) return res.status(400).send({ message: `Invalid refresh token` });
-            const token = jwt.sign({ id: user._id, email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team }, process.env.JWT_SECRET, {
+            const token = jwt.sign({ id: user.id, email: user.email, userName: user.userName, rol: user.rol, profilePic: user.profilePic, team: user.team }, process.env.JWT_SECRET, {
                 expiresIn: '15m'
             });
             console.log('handleRefreshToken: token', token);
             return res.status(200).send(token);
         });
     } catch (e) {
-        return res.status(403).json({ message: e});
+        return res.status(403).json({ message: e });
     }
 }
 

@@ -1,4 +1,5 @@
 const newComment = require('../models/NewComment.model');
+const New = require('../models/New.model');
 
 const getNewCommentsService = async (_id) => {
     try {
@@ -18,7 +19,10 @@ const addNewCommentService = async (data) => {
             fecha: new Date(),
             updatedAt: new Date()
         });
+        const noticia = await New.findById(nuevoComentario.idNoticia);
+        noticia.comments++;
         await nuevoComentario.save();
+        await noticia.save();
         return true;
     } catch (error) {
         console.log(error);
@@ -40,6 +44,10 @@ const editNewCommentService = async (_id, data) => {
 
 const deleteNewCommentService = async (_id) => {
     try {
+        const comentario = await newComment.findById(_id);
+        const noticia = New.findById(comentario.idNoticia);
+        noticia.comments--;
+        await noticia.save();
         await newComment.findByIdAndDelete(_id);
         return true;
     } catch (error) {
@@ -51,7 +59,9 @@ const deleteNewCommentService = async (_id) => {
 const addLikeNewCommentService = async (_id, idComentario) => {
     try {
         const respuesta = await newComment.findById(idComentario);
-        respuesta.likes.push(_id);
+        if(!respuesta.likes.find(el => el === _id)) {
+            respuesta.likes.push(_id);
+        }
         await respuesta.save();
         return true;
     } catch (error) {

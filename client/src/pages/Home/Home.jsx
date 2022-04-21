@@ -18,7 +18,7 @@ export default function Home({ logged }) {
   const axios = useAxiosPrivate();
   const [matches, setMatches] = useState([]);
   const [news, setNews] = useState([]);
-  
+
   const [loadingMatches, setLoadingMatches] = useState(true);
   const [loadingNews, setLoadingNews] = useState(true);
 
@@ -53,8 +53,8 @@ export default function Home({ logged }) {
           </Typography>
         </Box>
         <Card sx={{ minWidth: 275, margin: '10px' }}>
-          <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-            Últimas noticias
+          <Typography sx={{ fontSize: 17, padding: '10px' }} gutterBottom>
+            <strong>Últimas noticias</strong>
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
             {
@@ -78,8 +78,8 @@ export default function Home({ logged }) {
           </CardActions>
         </Card>
         <Card sx={{ minWidth: 275, margin: '10px' }}>
-          <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-            Últimos partidos agregados
+          <Typography sx={{ fontSize: 17, padding: '10px' }} gutterBottom>
+            <strong>Últimos partidos agregados</strong>
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
             {
@@ -106,8 +106,8 @@ export default function Home({ logged }) {
           logged ?
             <>
               <Card sx={{ minWidth: 275, margin: '10px' }}>
-                <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-                  Partidos más pronosticados
+                <Typography sx={{ fontSize: 17, padding: '10px' }} gutterBottom>
+                  <strong>Partidos más pronosticados</strong>
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '30px' }}>
                   {
@@ -123,8 +123,8 @@ export default function Home({ logged }) {
                 </Box>
               </Card>
               <Card sx={{ minWidth: 275, margin: '10px' }}>
-                <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-                  Premios más canjeados
+                <Typography sx={{ fontSize: 17, padding: '10px' }} gutterBottom>
+                  <strong>Premios más canjeados</strong>
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
                   {
@@ -143,8 +143,8 @@ export default function Home({ logged }) {
                 </CardActions>
               </Card>
               <Card sx={{ minWidth: 275, margin: '10px' }}>
-                <Typography sx={{ fontSize: 17, padding: '10px' }} color="text.secondary" gutterBottom>
-                  Top 5 mejores pronosticadores
+                <Typography sx={{ fontSize: 17, padding: '10px' }} gutterBottom>
+                  <strong>Top 5 mejores pronosticadores</strong>
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '30px' }}>
                   {

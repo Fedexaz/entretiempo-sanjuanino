@@ -40,13 +40,13 @@ export default function Login() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
+        axios.defaults.withCredentials = true;
         const response = await axios.post("http://localhost:3001/user/login", values);
         var decoded = decoder(response.data);
         const storage = window.localStorage;
         dispatch(setToken(response.data));
         storage.setItem('data', JSON.stringify(decoded));
         storage.setItem('loggedIn', 'true');
-        console.log('login')
         goto("/");
       } catch (e) {
         console.log(e);

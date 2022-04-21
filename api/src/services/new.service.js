@@ -62,7 +62,9 @@ const deleteNewService = async (_id) => {
 const addLikeNewService = async (_id, idNoticia) => {
     try {
         const respuesta = await New.findById(idNoticia);
-        respuesta.likes.push(_id);
+        if(!respuesta.likes.find(el => el === _id)) {
+            respuesta.likes.push(_id);
+        }
         await respuesta.save();
         return true;
     } catch (error) {

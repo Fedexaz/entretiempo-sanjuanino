@@ -42,7 +42,7 @@ export default function Registro() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post("/user/register", values);
+        await axios.post("http://localhost:3001/user/register", values);
         goto("/login");
       } catch (e) {
         console.log(e.response.data.message);

@@ -27,8 +27,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BoyIcon from '@mui/icons-material/Boy';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import StoreIcon from '@mui/icons-material/Store';
 
-const userIcons = [<HomeIcon />, <AccountCircleIcon />, <ReceiptIcon />];
+const userIcons = [<HomeIcon />, <AccountCircleIcon />, <ReceiptIcon />, <StoreIcon />];
 
 const entretiempoIcons = [<NewspaperIcon />, <SportsSoccerIcon />, <ListIcon />, <SportsIcon />, <BoyIcon />];
 
@@ -92,6 +93,12 @@ export default function HomeMobile() {
                 </ListItemIcon>
                 <ListItemText primary={'Mis pronósticos'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+              <ListItemButton title='Tienda de puntos' sx={{ minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5, }} onClick={() => handlePages('tienda')}>
+                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
+                    {userIcons[3]}
+                  </ListItemIcon>
+                  <ListItemText primary={'Tienda de puntos'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
             </>
             :
             <>
